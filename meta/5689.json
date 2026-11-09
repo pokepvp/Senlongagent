@@ -1,0 +1,31 @@
+{
+  "name": "Shenlong Agent #5689",
+  "description": "Shenlong Agent \u2014 8,888 dragon agents on BNB Chain. Mint 0.001 BNB, Agent free 1x, max 5 per wallet.",
+  "image": "https://senlonggg.my.id/images/5689.webp",
+  "attributes": [
+    {
+      "trait_type": "Class",
+      "value": "Pearl"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Master",
+      "value": 9
+    },
+    {
+      "trait_type": "Hue",
+      "value": 208
+    },
+    {
+      "trait_type": "Saturation",
+      "value": 0.85
+    },
+    {
+      "trait_type": "Flipped",
+      "value": true
+    }
+  ]
+}

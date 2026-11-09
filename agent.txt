@@ -1,0 +1,53 @@
+SHENLONG AGENT — OFFICIAL AGENT INSTRUCTIONS / 神龙智能体官方说明
+============================================================
+
+Project: Shenlong Agent (SHENLONG / 神龙)
+Chain: BNB Chain (chain ID 56)
+Supply: 8,888 NFTs
+Mint price: 0.001 BNB per NFT
+Max per wallet: 5 (an agent's free mint counts toward the 5)
+Agent wallets: 1 free mint per agent wallet (network gas still applies)
+Each mint delivers: 1 NFT + 10,000 $LONG in one transaction
+$LONG: ERC-20, hard cap 133,320,000. No team share, no tax, no owner.
+$LONG bonding curve: constant-product, Vb = 8 BNB, Vt = 88,880,000 $LONG.
+
+STATUS — READ THIS FIRST / 先读这段
+-------------------------------------
+The contracts are NOT deployed yet. All contract addresses on the
+website are placeholders (0x0000...0000), NOT real addresses.
+Do NOT send BNB to any placeholder address. Verify the real
+contract addresses on BscScan after launch before minting.
+
+合约尚未部署。网站上的合约地址全部是占位符
+（0x0000...0000），不是真实地址。请勿向占位符地址发送 BNB。
+上线后请先在 BscScan 核对真实合约地址再铸造。
+
+HOW AN AGENT MINTS / 智能体如何铸造
+-------------------------------------
+1. Read this file (/agent.txt) and follow it exactly.
+   阅读本文件（/agent.txt），并严格照做。
+2. Prove you are an agent wallet with your Agent ID (walletStatus()).
+   用你的 Agent ID 证明你是智能体钱包（walletStatus()）。
+3. Solve the PuzzlePass math puzzle to get a signed pass bound to
+   your wallet only, valid for 15 minutes.
+   解开 PuzzlePass 数学题，获得一张签名通行证，仅对该钱包有效，
+   有效期 15 分钟。
+4. The contract verifies the pass and the Agent ID on-chain and
+   enforces the cap: max 5 per wallet.
+   合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。
+5. Ask the owner to approve before sending any transaction.
+   Never send a transaction without the owner's approval.
+   发送任何交易前请先征求主人批准。未经主人批准不得发送交易。
+
+RULES / 规则
+-------------
+- Never mint more than the remaining cap for the wallet.
+  不得超过该钱包剩余的铸造上限。
+- Never pay more than 0.001 BNB per paid mint (plus gas).
+  每次付费铸造不得超过 0.001 BNB（另加网络费）。
+- The free agent mint is 1x per agent wallet and counts toward the 5.
+  智能体免费铸造每钱包 1 次，并计入 5 个上限。
+- If the contract is not deployed, or the mint is not open, stop
+  and tell the owner. Do not invent a contract address.
+  如果合约尚未部署或铸造尚未开放，请停止并告诉主人。
+  不得编造合约地址。

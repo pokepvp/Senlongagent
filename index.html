@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2316295e'/%3E%3Crect x='5' y='5' width='54' height='54' rx='9' fill='none' stroke='%23ffd97a' stroke-width='3'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle' fill='%23ffd97a' font-family='serif' font-weight='900'%3E%E7%A5%9E%3C/text%3E%3C/svg%3E" />
+<title>神龙智能体 Shenlong Agent — 链上 AI 智能体神龙</title>
+<meta name="description" content="神龙智能体 Shenlong Agent：BNB 链上的 8,888 条神龙。每铸造一次，即可获得一个 NFT + 10,000 $LONG，以及一个能自主工作的 AI 智能体。可用钱包铸造，也可让你的 AI 智能体来铸造。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&family=Marcellus&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* ===== SHENLONG SIGNATURE THEME — “玄夜龙宫 · Midnight Dragon Palace” =====
+     Deep-sea midnight indigo, pearl-white ink, moon-gold + luminous jade.
+     No other project uses this palette/type pairing. */
+  --bg:#050a1a; --bg2:#081026; --panel:#0b1531; --panel2:#101d42;
+  --ink:#eef3ff; --muted:#a9b8dc; --faint:#7186b3;
+  --gold:#e9b949; --gold2:#ffd97a; --jade:#3fe3b2; --jade-d:#0a2e2b;
+  --azure:#5ea8ff; --red:#ff5a3c; --red-d:#571c0e;
+  --line:rgba(233,185,73,.34); --line2:rgba(169,184,220,.16);
+  --btn-ink:#1a1002; --chip:#101d42;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    /* Light face of the same palace: pearl mist over pale jade water, deep indigo ink */
+    --bg:#e9f1f4; --bg2:#dfeaf2; --panel:#f7fbfd; --panel2:#eef6fb;
+    --ink:#0d1a33; --muted:#3e5478; --faint:#6b81a5;
+    --gold:#9a6b0d; --gold2:#7d5605; --jade:#067a63; --jade-d:#d3f2e7;
+    --azure:#1f66c4; --red:#c93a22; --red-d:#f9dcd4;
+    --line:rgba(154,107,13,.42); --line2:rgba(13,26,51,.15);
+    --btn-ink:#fff8e6; --chip:#dde9f2;
+    color-scheme:light;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"Noto Sans SC",Manrope,system-ui,sans-serif;line-height:1.65;overflow-x:hidden;
+  background:
+   radial-gradient(1100px 520px at 82% -6%, rgba(94,168,255,.13), transparent 62%),
+   radial-gradient(900px 600px at -10% 34%, rgba(63,227,178,.07), transparent 60%),
+   radial-gradient(1000px 700px at 50% 118%, rgba(233,185,73,.06), transparent 60%),
+   linear-gradient(180deg, var(--bg) 0%, var(--bg2) 46%, var(--bg) 100%);
+  background-attachment:fixed}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1220px;margin:0 auto;padding:0 22px}
+.serif{font-family:Marcellus,"Noto Serif SC",serif;font-weight:400}
+.cn{font-family:"Noto Serif SC",serif}
+.mono{font-family:"JetBrains Mono",monospace}
+.kicker{letter-spacing:.34em;font-size:.72rem;font-weight:800;color:var(--gold);text-transform:uppercase}
+h1,h2{font-family:Marcellus,"Noto Serif SC",serif;font-weight:400;line-height:1.12;margin:0}
+h2{font-size:clamp(1.9rem,4.4vw,3.1rem)}
+h2 em, h1 em{font-style:normal;color:var(--gold2)}
+.lede{color:var(--muted);max-width:56ch}
+section{padding:84px 0;border-top:1px solid var(--line2)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;border-radius:4px;padding:.85rem 1.5rem;font-weight:800;font-size:.95rem;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1002;box-shadow:0 8px 24px rgba(217,169,60,.25)}
+@media (prefers-color-scheme: light){.btn-gold{color:#fff8e6}}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-jade{background:var(--jade-d);color:var(--jade);border-color:rgba(47,191,154,.4)}
+.btn-red{background:var(--red);color:#fff}
+.chip{display:inline-block;padding:.28rem .7rem;border:1px solid var(--line2);border-radius:999px;font-size:.78rem;color:var(--muted);background:var(--chip)}
+.seal{display:inline-flex;align-items:center;justify-content:center;background:var(--red);color:#fff;font-family:"Noto Serif SC",serif;font-weight:900;border-radius:6px;padding:.3rem .5rem;line-height:1.15;text-align:center;box-shadow:0 4px 14px rgba(216,69,46,.35)}
+/* NAV */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:1.2rem;padding:.7rem 0}
+.logo{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.logo .seal{font-size:1.05rem;width:42px;height:42px}
+.logo b{font-family:Marcellus,serif;font-size:1.15rem;letter-spacing:.06em}
+.logo small{display:block;font-size:.62rem;letter-spacing:.3em;color:var(--gold);font-weight:800}
+nav.main{display:flex;gap:1.3rem;margin-left:auto}
+nav.main a{text-decoration:none;font-size:.92rem;font-weight:600;color:var(--muted)}
+nav.main a:hover{color:var(--gold2)}
+.nav-cta{margin-left:.4rem}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);font-size:1.2rem;padding:.35rem .7rem;cursor:pointer}
+.mobile-menu{display:none;border-top:1px solid var(--line2);padding:.8rem 0}
+.mobile-menu a{display:block;padding:.5rem 0;text-decoration:none;font-weight:600;color:var(--muted)}
+.mobile-menu.open{display:block}
+/* HERO */
+.hero{position:relative;padding:64px 0 0;overflow:hidden;background:
+ radial-gradient(760px 480px at 82% 6%, rgba(94,168,255,.20), transparent 62%),
+ radial-gradient(560px 380px at 78% 22%, rgba(255,217,122,.12), transparent 60%),
+ radial-gradient(700px 420px at 6% 34%, rgba(63,227,178,.10), transparent 60%),
+ radial-gradient(640px 300px at 12% 4%, rgba(255,90,60,.08), transparent 60%), transparent}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.5rem,6vw,4.4rem)}
+.hero .sub{font-size:1.12rem;color:var(--ink);font-weight:600;margin:1.1rem 0 .4rem}
+.hero p{color:var(--muted)}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.hero-note{margin-top:1rem;font-size:.85rem;color:var(--faint)}
+.orb{position:relative;max-width:520px;margin:0 auto;width:100%}
+.orb .ring{position:absolute;inset:-4.5%;border:1px solid var(--line);border-radius:50%;animation:spin 60s linear infinite}
+.orb .ring.r2{inset:-10%;border-style:dashed;opacity:.6;animation-duration:90s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.orb .ring{animation:none}.marquee-track{animation:none!important}}
+.orb img.main{border-radius:50%;border:2px solid var(--gold);box-shadow:0 0 90px rgba(94,168,255,.38),0 0 34px rgba(233,185,73,.22);aspect-ratio:1;object-fit:cover;width:100%}
+.orb .sat{position:absolute;width:19%;aspect-ratio:1;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.orb .s1{top:-4%;left:42%}.orb .s2{top:22%;right:-7%}.orb .s3{bottom:16%;right:-4%}
+.orb .s4{bottom:-5%;left:38%}.orb .s5{top:46%;left:-8%}
+.orb .pearl-tag{position:absolute;bottom:6%;left:-4%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem;font-size:.82rem;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.vertical-cn{position:absolute;right:10px;top:4%;writing-mode:vertical-rl;font-family:"Noto Serif SC",serif;font-size:1.35rem;letter-spacing:.45em;color:var(--gold);opacity:.9;z-index:3;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+/* STATS */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);margin-top:64px}
+.stats .wrap{display:grid;grid-template-columns:repeat(7,1fr);gap:1rem;padding-top:1.1rem;padding-bottom:1.1rem}
+.stat small{display:block;color:var(--faint);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.stat b{font-family:"JetBrains Mono",monospace;font-size:1.02rem;font-weight:600}
+.progress{height:5px;background:var(--line2);grid-column:1/-1;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:21.25%;background:linear-gradient(90deg,var(--jade),var(--gold))}
+/* BIG NUMBER + GALLERY */
+.big-flex{display:flex;gap:2.5rem;align-items:flex-end;flex-wrap:wrap}
+.big-num{font-family:Marcellus,serif;font-size:clamp(5rem,15vw,12.5rem);line-height:.95;color:var(--ink)}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.6rem 0 1rem}
+.filters button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-family:inherit}
+.filters button.on{background:var(--gold);color:#1a1002;border-color:var(--gold)}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gcard{border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:var(--panel)}
+.gcard img{aspect-ratio:1;object-fit:cover;width:100%}
+.gcard .meta{display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;font-size:.85rem}
+.gcard .meta b{font-family:"JetBrains Mono",monospace;font-weight:600}
+.rar{font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:.15rem .5rem;border-radius:99px}
+.rar.leg{background:rgba(217,169,60,.18);color:var(--gold2);border:1px solid var(--gold)}
+.rar.epic{background:rgba(168,85,247,.16);color:#c99aff;border:1px solid rgba(168,85,247,.5)}
+.rar.rare{background:rgba(59,130,246,.15);color:#8dbcff;border:1px solid rgba(59,130,246,.5)}
+.rar.com{background:var(--chip);color:var(--muted);border:1px solid var(--line2)}
+.marquee{overflow:hidden;margin-top:16px;border-radius:12px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee-track{display:flex;gap:14px;width:max-content;animation:mq 36s linear infinite}
+.marquee-track img{width:190px;height:190px;object-fit:cover;border-radius:12px;border:1px solid var(--line2)}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* LAYERS */
+.two-col{display:grid;grid-template-columns:1fr 1.15fr;gap:3rem;align-items:start}
+.layer{border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.5rem;background:var(--panel);margin-bottom:1rem}
+.layer.dashed{border-style:dashed;background:transparent}
+.layer h3{margin:.1rem 0 .5rem;font-family:Marcellus,serif;font-size:1.45rem;font-weight:400}
+.layer h3 .lv{color:var(--gold);font-size:.95rem;margin-right:.6rem;font-family:"JetBrains Mono",monospace}
+.layer p{color:var(--muted);margin:.3rem 0 .8rem}
+.live{float:right;font-size:.72rem;font-weight:800;color:var(--jade);background:rgba(47,191,154,.12);border:1px solid rgba(47,191,154,.4);padding:.25rem .6rem;border-radius:99px}
+.soon{float:right;font-size:.72rem;font-weight:800;color:var(--faint);background:var(--chip);border:1px solid var(--line2);padding:.25rem .6rem;border-radius:99px}
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.step{padding:1.3rem 1.15rem;border-left:1px solid var(--line2)}
+.step:first-child{border-left:none}
+.step .n{color:var(--gold);font-family:"JetBrains Mono",monospace;font-size:.85rem}
+.step h4{margin:.5rem 0 .4rem;font-size:1rem}
+.step p{color:var(--muted);font-size:.88rem;margin:0}
+/* MINT / AGENT */
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.card{border:1px solid var(--line);border-radius:16px;padding:1.7rem;background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.card h3{font-family:Marcellus,serif;font-weight:400;font-size:1.6rem;margin:.4rem 0 .6rem}
+.card p{color:var(--muted)}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.1rem 0}
+.mini{border:1px solid var(--line2);border-radius:10px;padding:.7rem .9rem}
+.mini small{display:block;color:var(--faint);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.mini b{font-family:"JetBrains Mono",monospace;font-weight:600}
+.qty{display:flex;align-items:center;gap:.6rem;margin:.8rem 0}
+.qty button{width:42px;height:42px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:1.2rem;cursor:pointer}
+.qty output{font-family:"JetBrains Mono",monospace;font-size:1.3rem;min-width:2ch;text-align:center}
+label.fl{display:block;font-size:.8rem;font-weight:700;color:var(--muted);margin:.9rem 0 .35rem}
+input[type=text]{width:100%;padding:.75rem .9rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-family:"JetBrains Mono",monospace;font-size:.85rem}
+textarea{width:100%;min-height:170px;padding:.9rem;border-radius:10px;border:1px solid var(--line);background:#060f2c;color:#a9ecff;font-family:"JetBrains Mono",monospace;font-size:.78rem;line-height:1.55;resize:vertical}
+@media (prefers-color-scheme: light){textarea{background:#0b1531;color:#a9ecff}}
+.status{font-size:.85rem;color:var(--jade);min-height:1.3em;margin-top:.5rem;font-weight:600}
+/* CURVE */
+.curve-box{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:1.5rem}
+.formula{border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;font-family:"JetBrains Mono",monospace;font-size:.88rem;background:var(--bg2);white-space:pre-line}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.curve-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;border-top:1px solid var(--line2);margin-top:1rem;padding-top:1rem}
+.curve-stats small{display:block;color:var(--faint);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.curve-stats b{font-family:"JetBrains Mono",monospace;font-weight:600}
+/* TOKENS */
+.token-bar{display:flex;height:26px;border-radius:6px;overflow:hidden;margin:1.4rem 0}
+.token-bar .a{background:var(--gold);flex:2}.token-bar .b{background:var(--jade);flex:1}
+.checks{display:flex;gap:1.4rem;flex-wrap:wrap;color:var(--muted);font-size:.92rem;margin-top:1rem}
+.checks span::before{content:"◉ ";color:var(--jade)}
+/* CLASSES */
+.class-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ccard{border:1px solid var(--line2);border-radius:14px;overflow:hidden;background:var(--panel)}
+.ccard img{aspect-ratio:1;object-fit:cover;width:100%}
+.ccard .body{padding:1rem 1.05rem 1.15rem}
+.ccard .dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-bottom:.4rem}
+.ccard h4{margin:.1rem 0 .35rem;font-size:1.05rem}
+.ccard p{color:var(--muted);font-size:.87rem;margin:0 0 .6rem}
+.ccard a{font-size:.85rem;font-weight:800;text-decoration:none;color:var(--gold2)}
+/* TRAITS */
+.trait-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.tpanel{border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.5rem;background:var(--panel)}
+.trow{margin:.95rem 0}
+.trow .top{display:flex;justify-content:space-between;font-size:.92rem}
+.trow .top b{font-family:"JetBrains Mono",monospace;font-weight:600}
+.trow .top span{color:var(--faint)}
+.bar{height:7px;background:var(--line2);border-radius:99px;margin-top:.35rem;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+/* LORE */
+.lore{background:linear-gradient(180deg,var(--bg2),var(--bg));position:relative;overflow:hidden}
+.lore .giant{position:absolute;right:0;top:10px;font-family:"Noto Serif SC",serif;font-weight:900;font-size:clamp(9rem,26vw,20rem);color:transparent;-webkit-text-stroke:1px var(--line);opacity:.5;line-height:1;pointer-events:none}
+.lore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;position:relative}
+.lore-card{border:1px solid var(--line2);border-radius:12px;padding:1.25rem;background:var(--panel)}
+.lore-card h4{margin:.2rem 0 .4rem}
+.lore-card p{color:var(--muted);font-size:.92rem;margin:0}
+table.names{width:100%;border-collapse:collapse;margin-top:1.6rem;position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+table.names th,table.names td{padding:.8rem 1rem;text-align:left;border-top:1px solid var(--line2);font-size:.93rem}
+table.names th{border-top:none;color:var(--gold);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+table.names td{color:var(--muted)}
+table.names td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+/* CONTRACTS */
+.contract-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.contract{border:1px solid var(--line);border-radius:14px;padding:1.5rem;background:var(--panel)}
+.contract h3{font-family:Marcellus,serif;font-weight:400;font-size:1.5rem;margin:0}
+.contract .tag{float:right;font-size:.72rem;font-weight:800;color:var(--gold2);background:rgba(217,169,60,.12);border:1px solid var(--line);padding:.25rem .6rem;border-radius:99px}
+.contract small{color:var(--faint);letter-spacing:.14em;font-weight:700}
+.contract p{color:var(--muted)}
+.contract .addr{font-family:"JetBrains Mono",monospace;font-size:.85rem;color:var(--faint)}
+/* ROADMAP */
+.road{border-left:2px solid var(--line);margin-left:.5rem;padding-left:1.6rem;display:grid;gap:1.6rem}
+.road .item{position:relative}
+.road .item::before{content:"";position:absolute;left:calc(-1.6rem - 7px);top:.4rem;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--gold)}
+.road .item.done::before{background:var(--jade);border-color:var(--jade)}
+.road h4{margin:.15rem 0 .3rem}
+.road p{color:var(--muted);margin:0;max-width:62ch}
+/* FAQ */
+details{border:1px solid var(--line2);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.7rem;background:var(--panel)}
+summary{cursor:pointer;font-weight:800}
+details p{color:var(--muted);margin:.6rem 0 .2rem}
+footer{border-top:1px solid var(--line);padding:44px 0 54px;background:var(--bg2)}
+.foot{display:flex;gap:2rem;flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
+footer p{color:var(--faint);font-size:.88rem;max-width:52ch}
+.cloudband{height:54px;background-image:url("assets/img-01.webp");background-size:cover;background-position:center 30%;opacity:.9;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media (max-width:1020px){
+  nav.main{display:none}.burger{display:block}.nav-cta{display:none}
+  .hero-grid,.two-col,.cards2,.trait-grid,.contract-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}.step{border-top:1px solid var(--line2)}
+  .class-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .stats .wrap{grid-template-columns:repeat(3,1fr)}
+  .lore-grid{grid-template-columns:1fr}
+  .vertical-cn{display:none}
+}
+@media (max-width:560px){
+  section{padding:58px 0}
+  .steps{grid-template-columns:1fr}
+  .class-grid{grid-template-columns:1fr}
+  .curve-stats{grid-template-columns:1fr 1fr}
+  .orb .s5{display:none}
+  table.names th:nth-child(3),table.names td:nth-child(3){display:none}
+}
+/* ============ SHENLONG SIGNATURE — MIDNIGHT DRAGON PALACE ============ */
+::selection{background:var(--jade);color:#04231b}
+.brush{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-weight:400}
+/* Signature display face: ZCOOL QingKe HuangYou — bold poster-style Chinese
+   letterforms, paired with Noto Serif SC for sub-heads and Ma Shan Zheng brush. */
+h1,h2{font-family:"ZCOOL QingKe HuangYou","Noto Serif SC",Marcellus,serif;font-weight:400;letter-spacing:.035em}
+h1{text-shadow:0 0 34px rgba(94,168,255,.22)}
+.hero h1{font-size:clamp(2.9rem,6.6vw,5rem)}
+h2 em,h1 em{position:relative}
+h1 em::after,h2 em::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.14em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 30 2, 55 11, 82 6 S 112 4, 118 7' fill='none' stroke='%23d8452e' stroke-width='4' stroke-linecap='round' opacity='.75'/%3E%3C/svg%3E") center/100% 100% no-repeat;pointer-events:none}
+h3,.card h3,.layer h3,.contract h3{font-family:"Noto Serif SC",Marcellus,serif;font-weight:700}
+/* Icon system */
+.ic{width:1.2em;height:1.2em;flex:none;display:inline-block;vertical-align:-.22em}
+.btn .ic{width:1.15em;height:1.15em}
+.burger .ic{width:1.35rem;height:1.35rem;vertical-align:-.3em;color:var(--gold2)}
+/* Kicker: xiangyun cloud scroll + double imperial rule */
+.kicker{display:inline-flex;align-items:center;gap:.65rem}
+.kicker{color:var(--jade)}
+.kicker::before{content:"";width:34px;height:16px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 16'%3E%3Cpath d='M1 13h19a5 5 0 1 0-4.6-6.9A7.5 7.5 0 0 0 1.5 9' fill='none' stroke='%233fe3b2' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='11' r='1.6' fill='%23ff5a3c'/%3E%3C/svg%3E") center/contain no-repeat}
+.mini-seal{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-size:.95rem;letter-spacing:.12em;background:var(--red);color:#fff;padding:.18rem .5rem .1rem;border-radius:3px;transform:rotate(-2deg);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35),0 3px 10px rgba(216,69,46,.35);line-height:1.2}
+/* Logo: dragon medallion */
+.logo{gap:.8rem}
+.logo-mark{position:relative;width:54px;height:54px;flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 32% 28%,#3d6bc4,#16295e 55%,#081233);border:2px solid var(--gold);box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--gold),0 10px 24px rgba(94,168,255,.40);overflow:hidden}
+.logo-swirl{position:absolute;inset:3px;opacity:.4}
+.logo-hanzi{position:relative;font-family:"Ma Shan Zheng","Noto Serif SC",serif;writing-mode:vertical-rl;font-size:1.02rem;line-height:1.05;letter-spacing:.06em;color:#ffe9a8;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.logo-word b{font-family:"ZCOOL QingKe HuangYou","Noto Serif SC",Marcellus,serif;font-weight:400;font-size:1.42rem;letter-spacing:.13em;line-height:1.1}
+.logo-word b em{font-style:normal;color:var(--gold2)}
+.logo-word small{display:block;font-size:.6rem;letter-spacing:.34em;color:var(--gold);font-weight:800;margin-top:.15rem}
+/* Seal stamp */
+.seal{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-weight:400;border:2px solid rgba(255,255,255,.28);outline:1px solid var(--red);outline-offset:2px;transform:rotate(-2.5deg);box-shadow:0 4px 14px rgba(216,69,46,.35)}
+/* Buttons: sharp imperial corners, gold thread edge */
+.btn{border-radius:3px;letter-spacing:.03em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.btn-gold{background:linear-gradient(180deg,var(--gold2),var(--gold) 70%,#b98a24);border-color:#8a6508;box-shadow:inset 0 0 0 1px rgba(255,248,220,.5),0 8px 24px rgba(217,169,60,.28)}
+.btn-ghost{border-color:var(--line);background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.btn-ghost:hover,.btn-jade:hover{border-color:var(--gold)}
+/* Hero: dragon-scale pattern + giant brush watermark */
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 50% 0,transparent 62%,rgba(94,168,255,.13) 64%,transparent 72%);background-size:44px 24px;pointer-events:none}
+.hero::after{content:"神龙";position:absolute;left:-2rem;top:1rem;font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-size:clamp(7rem,18vw,13rem);line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);opacity:.45;pointer-events:none}
+.hero-grid{position:relative;z-index:2}
+.orb img.main{border:3px solid var(--gold);outline:1px solid var(--line);outline-offset:6px}
+.orb .pearl-tag{border:1px solid var(--gold);border-radius:4px}
+.orb .pearl-tag .ic{color:var(--gold2);width:1.3em;height:1.3em}
+.vertical-cn{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-size:1.7rem}
+/* Cards & panels: gold corner brackets */
+.card,.layer,.tpanel,.contract,.curve-box,.lore-card{position:relative}
+.card::before,.tpanel::before,.contract::before,.curve-box::before{content:"";position:absolute;top:-1px;left:-1px;width:22px;height:22px;border-top:2.5px solid var(--gold);border-left:2.5px solid var(--gold);border-top-left-radius:14px;pointer-events:none}
+.card::after,.tpanel::after,.contract::after,.curve-box::after{content:"";position:absolute;bottom:-1px;right:-1px;width:22px;height:22px;border-bottom:2.5px solid var(--gold);border-right:2.5px solid var(--gold);border-bottom-right-radius:14px;pointer-events:none}
+.gcard,.ccard{border-color:var(--line)}
+.gcard img,.ccard img{border-bottom:2px solid var(--gold)}
+.gcard .meta b,.ccard h4{font-family:"Noto Serif SC",serif}
+.big-num{font-family:"ZCOOL QingKe HuangYou","Noto Serif SC",serif;font-weight:400;text-shadow:.045em .045em 0 rgba(94,168,255,.30)}
+/* Steps numbered with brush numerals */
+.step .n{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-size:1.5rem;color:var(--red);letter-spacing:.05em}
+.step h4{font-family:"Noto Serif SC",serif;font-weight:700}
+/* Checks become mini luck seals */
+.checks span{display:inline-flex;align-items:center;gap:.5rem}
+.checks span::before{content:"福";display:inline-grid;place-items:center;width:21px;height:21px;flex:none;background:var(--red);color:#fff;font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-size:.85rem;line-height:1;border-radius:3px;transform:rotate(-2deg);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+/* Forms */
+input[type=text]:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.qty button{font-family:"Noto Serif SC",serif;font-weight:900;color:var(--gold2);border-radius:4px}
+.qty button:hover{border-color:var(--gold);background:var(--chip)}
+/* Stats strip */
+.stat small{color:var(--gold)}
+.stat b{font-size:1.08rem}
+/* Lore giant calligraphy */
+.lore .giant{font-family:"Ma Shan Zheng","Noto Serif SC",serif;font-weight:400}
+.lore-card h4{font-family:"Noto Serif SC",serif;font-weight:700}
+table.names th{font-family:"Noto Serif SC",serif}
+table.names td:first-child{font-family:"Noto Serif SC",serif;font-weight:900}
+/* Roadmap pearl nodes */
+.road .item::before{border-radius:3px;transform:rotate(45deg);background:var(--gold)}
+.road .item.done::before{background:var(--jade);border-color:var(--jade)}
+/* FAQ */
+summary{font-family:"Noto Serif SC",serif;font-weight:700}
+summary::marker{color:var(--red)}
+details[open ]{border-color:var(--gold)}
+/* Footer cloud divider on top */
+footer{position:relative}
+footer::before{content:"";position:absolute;top:-1px;left:0;right:0;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 16' preserveAspectRatio='none'%3E%3Cpath d='M1 13h19a5 5 0 1 0-4.6-6.9A7.5 7.5 0 0 0 1.5 9' fill='none' stroke='%233fe3b2' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") left center/68px 16px repeat-x;opacity:.55}
+/* FIXES — logo glyph clearance, new rarity chips, linked chips, language toggle */
+.logo-mark{overflow:visible}
+.logo-hanzi{line-height:1.28;padding:.14em 0}
+.rar.unc{background:rgba(63,227,178,.13);color:var(--jade);border:1px solid rgba(63,227,178,.5)}
+.rar.myth{background:rgba(255,90,60,.16);color:#ffb59f;border:1px solid var(--red)}
+a.chip{text-decoration:none}
+a.chip:hover{border-color:var(--gold);color:var(--gold2)}
+.lang-btn{margin-left:.2rem;background:transparent;border:1px solid var(--line);border-radius:6px;color:var(--muted);font-weight:800;font-size:.85rem;padding:.5rem .8rem;cursor:pointer;font-family:inherit;white-space:nowrap}
+.lang-btn:hover{color:var(--gold2);border-color:var(--gold)}
+@media (max-width:560px){.logo-mark{width:46px;height:46px}.logo-hanzi{font-size:.88rem}.logo-word b{font-size:1.08rem}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-dragon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.2C3 10.6 7 6.8 12 6.8c3.2 0 5.6 2 5.6 4.5 0 2.2-1.7 3.7-3.7 3.7-1.6 0-2.8-1.1-2.8-2.5 0-1.3 1-2.3 2.3-2.3"/><path d="M17.6 6.3 20.2 3.5l-.4 3.6M17.6 6.3l3.6.7-3.2 1.7"/><circle cx="15.9" cy="9.5" r=".5" fill="currentColor" stroke="none"/><path d="M3 16.2 1.3 19.4M3 16.2l3.4 1.3"/></g></symbol>
+<symbol id="i-pearl" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="6.4"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/><path d="M12 1.8v2.4M12 19.8v2.4M1.8 12h2.4M19.8 12h2.4"/></g></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 19h11.7a4.6 4.6 0 0 0 .9-9A6.6 6.6 0 0 0 5.5 12.2 4.9 4.9 0 0 0 5.8 19Z"/><path d="M9.2 15.4a2.8 2.8 0 1 1 2.8-2.8"/></g></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11.5" height="11.5" rx="2"/><path d="M5.5 15h-1A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5v1"/></g></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="5.8" width="18.4" height="13.4" rx="2.6"/><path d="M2.8 10h18.4"/><circle cx="16.8" cy="14.8" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 6.5h17M3.5 12h10.5M3.5 17.5h17"/><circle cx="18.6" cy="12" r="1.5"/></g></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5h11.5v13.5"/><path d="M7 4.5a2.6 2.6 0 1 0 2.6 2.6V18a2.6 2.6 0 1 1-2.6 2.6"/><path d="M12.5 9.5h5M12.5 13h5"/></g></symbol>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="神龙智能体 — 首页">
+      <span class="logo-mark" aria-hidden="true"><svg class="logo-swirl" viewBox="0 0 48 48" fill="none"><path d="M9 33C7 23 14 14 23 13.5c7.5-.4 13.5 4.8 12.6 10.6-.7 5-6.2 7.3-9.6 4.4-2.6-2.2-1.2-6.8 2.4-7.4" stroke="#f0cd6e" stroke-width="2.6" stroke-linecap="round"/><path d="M34.6 12.6 40 8.4l-1.2 6.4M34.6 12.6l6.4 1.2-5.4 3.2" stroke="#f0cd6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13.5" cy="37" r="3.2" fill="#fff3d6" stroke="#f0cd6e" stroke-width="1.6"/></svg><span class="logo-hanzi">神龙</span></span>
+      <span class="logo-word"><b>SHEN<em>LONG</em></b><small>智能体 · 神龙赐福</small></span>
+    </a>
+    <nav class="main">
+      <a href="#mint">铸造</a><a href="#agen">智能体</a><a href="#koleksi">藏品</a>
+      <a href="#kelas">职业</a><a href="#protokol">协议</a><a href="#lore">传说</a><a href="#roadmap">路线图</a>
+      <a href="https://bscscan.com" target="_blank" rel="noopener">BscScan ↗</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="打开菜单"><svg class="ic"><use href="#i-menu"/></svg></button>
+    <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / 切换语言">EN</button>
+    <button class="btn btn-gold nav-cta" id="connectBtn" type="button"><svg class="ic"><use href="#i-wallet"/></svg><span id="connectLabel">连接钱包</span></button>
+  </div>
+  <div class="wrap mobile-menu" id="mobileMenu">
+    <a href="#mint">铸造</a><a href="#agen">智能体</a><a href="#koleksi">藏品</a>
+    <a href="#kelas">职业</a><a href="#protokol">协议</a><a href="#lore">神龙传说</a><a href="#roadmap">路线图</a>
+    <a href="https://bscscan.com" target="_blank" rel="noopener">BscScan ↗</a>
+    <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt — 智能体说明</a>
+    <a href="#" id="langLink"><b>English (EN)</b></a>
+    <a href="#" id="mConnect"><b>连接钱包 →</b></a>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker"><span class="mini-seal">神龙现世</span> 神龙创世 / BNB 链</p>
+      <h1 style="margin-top:1rem">让你的<br/><em>神龙</em><br/>活过来。</h1>
+      <p class="sub">8,888 条神龙。8,888 个自主运行的智能体。</p>
+      <p><b>神龙（Shénlóng）</b>是中国传说中的神圣之龙：掌管雨水、江河与天气，带来好运，几千年来深受帝王与百姓的尊崇。如今它重返链上——8,888 条独一无二的神龙，每一条都是一个 NFT，也是一个能自主工作的 AI 智能体。每铸造一次，即可在一笔交易中获得一个 NFT + <b>10,000 $LONG</b>。</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#mint"><svg class="ic"><use href="#i-pearl"/></svg>铸造神龙 →</a>
+        <a class="btn btn-ghost" href="#koleksi"><svg class="ic"><use href="#i-cloud"/></svg>查看藏品</a>
+        <a class="btn btn-jade" href="#agen"><svg class="ic"><use href="#i-dragon"/></svg>用 AI 智能体铸造</a>
+      </div>
+      <p class="hero-note">为什么是 8,888？在中国文化中，8（八）是最吉利的数字——象征财富与好运，四倍的吉祥。</p>
+    </div>
+    <div class="orb">
+      <div class="ring"></div><div class="ring r2"></div>
+      <span class="vertical-cn">神龙赐福</span>
+      <img class="main" src="assets/img-02.webp" alt="神龙——翡翠与金色交织的中国神龙，怀抱智慧宝珠" />
+      <img class="sat s1" src="assets/img-03.webp" alt="青龙版本" />
+      <img class="sat s2" src="assets/img-04.webp" alt="朱龙版本" />
+      <img class="sat s3" src="assets/img-05.webp" alt="金龙版本" />
+      <img class="sat s4" src="assets/img-06.webp" alt="珍珠龙版本" />
+      <img class="sat s5" src="assets/img-07.webp" alt="黑曜龙版本" />
+      <div class="pearl-tag"><svg class="ic"><use href="#i-pearl"/></svg> <b>智慧宝珠</b><br/><span style="color:var(--faint)">神龙追逐的智慧象征</span></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat"><small>总供应量</small><b>8,888</b></div>
+      <div class="stat"><small>已铸造</small><b>0 — 尚未开放</b></div>
+      <div class="stat"><small>剩余</small><b>8,888</b></div>
+      <div class="stat"><small>铸造价格</small><b>0.001 BNB</b></div>
+      <div class="stat"><small>每钱包上限</small><b>5</b></div>
+      <div class="stat"><small>$LONG 起始价格 *</small><b>0.00000009 BNB</b></div>
+      <div class="stat"><small>每次铸造奖励</small><b>10,000 $LONG</b></div>
+      <div class="progress"><i style="width:0%"></i></div>
+    </div>
+  </div>
+  <div class="wrap"><p style="color:var(--faint);font-size:.8rem;margin:.7rem 0 1.2rem">* 本页是神龙智能体的<b>概念预览</b>。铸造尚未开放：已铸造为 0，合约部署后将直接从链上读取真实数字。价格为协议设计值，并非主网实时数据。官方地址只会通过项目官方渠道公布。</p></div>
+</div>
+
+<!-- KOLEKSI -->
+<section id="koleksi" style="border-top:none;padding-top:30px">
+  <div class="wrap">
+    <div class="big-flex">
+      <div class="big-num">8,888</div>
+      <div style="max-width:420px;padding-bottom:1.2rem">
+        <h2>水墨绘成的神龙。<br/><em>每一条都独一无二。</em></h2>
+        <p class="lede">每条神龙都由独特的鳞片、龙角、元素、御用装备与稀有度组合而成——以水墨与金粉绘就，而非像素。</p>
+        <a class="btn btn-ghost" href="#kelas">查看 5 大神龙职业 →</a>
+      </div>
+    </div>
+    <div class="filters" role="group" aria-label="按职业筛选">
+      <button class="on" data-f="all">全部</button>
+      <button data-f="sage">智者</button>
+      <button data-f="trader">商人</button>
+      <button data-f="builder">匠人</button>
+      <button data-f="explorer">探险家</button>
+      <button data-f="guardian">守护者</button>
+    </div>
+    <div class="gal-grid" id="galGrid">
+      <div class="gcard" data-c="sage"><img src="assets/img-06.webp" alt="珍珠神龙，智者职业"/><div class="meta"><b>#0001</b><span>珍珠 · 智者</span><span class="rar leg">传说</span></div></div>
+      <div class="gcard" data-c="guardian"><img src="assets/img-02.webp" alt="翡翠神龙，守护者职业"/><div class="meta"><b>#0888</b><span>翡翠 · 守护者</span><span class="rar leg">传说</span></div></div>
+      <div class="gcard" data-c="trader"><img src="assets/img-05.webp" alt="金色神龙，商人职业"/><div class="meta"><b>#1688</b><span>金色 · 商人</span><span class="rar epic">史诗</span></div></div>
+      <div class="gcard" data-c="explorer"><img src="assets/img-03.webp" alt="青色神龙，探险家职业"/><div class="meta"><b>#2688</b><span>青色 · 探险家</span><span class="rar rare">稀有</span></div></div>
+      <div class="gcard" data-c="guardian"><img src="assets/img-04.webp" alt="朱红神龙，守护者职业"/><div class="meta"><b>#3688</b><span>朱红 · 守护者</span><span class="rar epic">史诗</span></div></div>
+      <div class="gcard" data-c="builder"><img src="assets/img-07.webp" alt="黑曜神龙，匠人职业"/><div class="meta"><b>#4688</b><span>黑曜 · 匠人</span><span class="rar rare">稀有</span></div></div>
+      <div class="gcard" data-c="sage"><img src="assets/img-01.webp" alt="祥云中的神龙，智者职业"/><div class="meta"><b>#5688</b><span>祥云 · 智者</span><span class="rar com">普通</span></div></div>
+      <div class="gcard" data-c="trader"><img src="assets/img-05.webp" alt="第二条金色神龙，商人职业" style="filter:hue-rotate(-18deg) saturate(1.15)"/><div class="meta"><b>#6688</b><span>御用 · 商人</span><span class="rar com">普通</span></div></div>
+      <div class="gcard" data-c="explorer"><img src="assets/img-08.webp" alt="神龙智能体 #0001，青龙，优秀" loading="lazy"/><div class="meta"><b>#0001</b><span>青龙 · 探险家</span><span class="rar unc">优秀</span></div></div>
+      <div class="gcard" data-c="guardian"><img src="assets/img-09.webp" alt="神龙智能体 #0004，朱龙，稀有" loading="lazy"/><div class="meta"><b>#0004</b><span>朱龙 · 守护者</span><span class="rar rare">稀有</span></div></div>
+      <div class="gcard" data-c="trader"><img src="assets/img-10.webp" alt="神龙智能体 #0005，金龙，稀有" loading="lazy"/><div class="meta"><b>#0005</b><span>金龙 · 商人</span><span class="rar rare">稀有</span></div></div>
+      <div class="gcard" data-c="explorer"><img src="assets/img-11.webp" alt="神龙智能体 #0021，青龙，史诗" loading="lazy"/><div class="meta"><b>#0021</b><span>青龙 · 探险家</span><span class="rar epic">史诗</span></div></div>
+      <div class="gcard" data-c="sage"><img src="assets/img-12.webp" alt="神龙智能体 #0029，珍珠龙，神话" loading="lazy"/><div class="meta"><b>#0029</b><span>珍珠 · 智者</span><span class="rar myth">神话</span></div></div>
+      <div class="gcard" data-c="explorer"><img src="assets/img-13.webp" alt="神龙智能体 #0032，青龙，史诗" loading="lazy"/><div class="meta"><b>#0032</b><span>青龙 · 探险家</span><span class="rar epic">史诗</span></div></div>
+      <div class="gcard" data-c="sage"><img src="assets/img-14.webp" alt="神龙智能体 #0130，珍珠龙，传说" loading="lazy"/><div class="meta"><b>#0130</b><span>珍珠 · 智者</span><span class="rar leg">传说</span></div></div>
+      <div class="gcard" data-c="sage"><img src="assets/img-15.webp" alt="神龙智能体 #0259，珍珠龙，传说" loading="lazy"/><div class="meta"><b>#0259</b><span>珍珠 · 智者</span><span class="rar leg">传说</span></div></div>
+    </div>
+    <p style="color:var(--faint);font-size:.85rem;margin-top:.9rem">全套 8,888 张图与元数据已经全部生成完毕。上方后 8 张（#0001、#0004、#0005、#0021、#0029、#0032、#0130、#0259）是全套中的真实藏品图，按元数据中的类别与稀有度标注——包括全套仅 44 张的「神话」#0029。图片托管地址（baseURI）将在合约部署时一并确定。</p>
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="mqTrack"><!-- 龙图滚动展示 -->
+      <img src="assets/img-02.webp" alt=""/><img src="assets/img-03.webp" alt=""/><img src="assets/img-04.webp" alt=""/><img src="assets/img-05.webp" alt=""/><img src="assets/img-07.webp" alt=""/><img src="assets/img-06.webp" alt=""/><img src="assets/img-01.webp" alt=""/><img src="assets/img-12.webp" alt=""/><img src="assets/img-14.webp" alt=""/><img src="assets/img-11.webp" alt=""/>
+    </div></div>
+  </div>
+</section>
+
+<!-- AGENTIC -->
+<section>
+  <div class="wrap two-col">
+    <div>
+      <p class="kicker">什么是智能体</p>
+      <h2 style="margin:.7rem 0 1rem">为<em>能自主行动的软件</em>而建。</h2>
+      <p class="lede">大多数 NFT 项目是为手动点击的人设计的。神龙同时也是为智能体设计的：它会阅读规则、核查链上信息、准备交易，并在行动前征求主人的确认。</p>
+      <p class="lede" style="margin-top:1rem">三层架构中有两层已为主网完成设计。运行层接下来开发。</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#agen"><svg class="ic"><use href="#i-dragon"/></svg>让智能体来铸造 →</a>
+        <a class="btn btn-ghost" href="#protokol"><svg class="ic"><use href="#i-scroll"/></svg>阅读协议</a>
+      </div>
+    </div>
+    <div>
+      <div class="layer">
+        <span class="live">● 已就绪（设计）</span>
+        <h3><span class="lv">L1</span>身份层</h3>
+        <p><b>智能体是谁？</b><br/>钱包通过 Agent ID 证明自己是智能体钱包。合约会在链上读取验证。</p>
+        <span class="chip">Agent ID (SPACE ID .ai)</span> <span class="chip">walletStatus()</span> <span class="chip">Binance Agentic Wallet</span>
+      </div>
+      <div class="layer">
+        <span class="live">● 已就绪（设计）</span>
+        <h3><span class="lv">L2</span>执行层</h3>
+        <p><b>它如何行动？</b><br/>智能体阅读说明、解开谜题、自行核查交易，然后在发送前请主人确认。</p>
+        <a class="chip" href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt ↗</a> <span class="chip">PuzzlePass (EIP-712)</span> <span class="chip">baw contract-call</span>
+      </div>
+      <div class="layer dashed">
+        <span class="soon">即将推出</span>
+        <h3><span class="lv">L3</span>运行层</h3>
+        <p><b>接下来是什么？</b><br/>每条神龙的职业决定其未来智能体的形态——执行任务并积累履历的智能体。</p>
+        <span class="chip">5 大智能体职业</span> <span class="chip">任务队列</span> <span class="chip">声誉系统</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENT STEPS -->
+<section id="agen">
+  <div class="wrap">
+    <p class="kicker">智能体专区</p>
+    <div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:flex-end">
+      <div>
+        <h2 style="margin:.6rem 0 .6rem">让你的智能体<em>完成整个铸造</em>。</h2>
+        <p class="lede">给你的 AI 智能体一条指令，它就能从头到尾完成铸造。你只需批准它发送的交易。</p>
+      </div>
+      <a class="btn btn-ghost" href="#prompt">生成智能体指令 ↓</a>
+    </div>
+    <div class="steps" style="margin-top:2rem">
+      <div class="step"><span class="n">01</span><h4>连接钱包</h4><p>在币安 App 中扫描二维码，或告诉智能体使用哪个钱包。只会共享钱包地址。</p></div>
+      <div class="step"><span class="n">02</span><h4>智能体阅读说明</h4><p>一个文本文件 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>，包含合约、规则、步骤以及可能出现的错误。现在就能打开阅读。</p></div>
+      <div class="step"><span class="n">03</span><h4>解开谜题</h4><p>智能体解答一道数学题，获得一张签名通行证，仅对该钱包有效，有效期 15 分钟。</p></div>
+      <div class="step"><span class="n">04</span><h4>合约核查</h4><p>合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。交易发送前由你批准。</p></div>
+      <div class="step"><span class="n">05</span><h4>神龙到账</h4><p>NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图立即显示。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MINT + PROMPT -->
+<section id="mint" style="padding-top:20px">
+  <div class="wrap">
+    <p class="kicker">开始使用</p>
+    <h2 style="margin:.6rem 0 2rem">有<em>两种方式</em>可以开始。</h2>
+    <div class="cards2">
+      <div class="card">
+        <p class="kicker" style="letter-spacing:.2em">铸造神龙</p>
+        <h3>每次铸造都附带 <em>10,000 $LONG</em>。</h3>
+        <p>NFT 与 10,000 $LONG 会在一笔交易中进入你的钱包。智能体钱包可获得 <b>1 次免费铸造</b>（只需支付少量网络费）。付费铸造向所有人开放。上限：<b>每钱包最多 5 个</b>。</p>
+        <div class="mini-stats">
+          <div class="mini"><small>已铸造</small><b>0 / 8,888 — 尚未开放</b></div>
+          <div class="mini"><small>剩余</small><b>8,888</b></div>
+          <div class="mini"><small>付费铸造</small><b>0.001 BNB</b></div>
+          <div class="mini"><small>代币奖励</small><b>10,000 $LONG</b></div>
+          <div class="mini"><small>每钱包上限</small><b>5</b></div>
+        </div>
+        <label class="fl" for="qtyOut">付费铸造数量（每钱包最多 5 个）</label>
+        <div class="qty">
+          <button id="qMinus" aria-label="减少">−</button>
+          <output id="qtyOut">1</output>
+          <button id="qPlus" aria-label="增加">+</button>
+          <span class="mono" style="margin-left:.6rem">总计：<b id="qtyTotal">0.001 BNB</b></span>
+        </div>
+        <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem">
+          <button class="btn btn-gold" id="mintBtn"><svg class="ic"><use href="#i-pearl"/></svg>铸造神龙</button>
+          <a class="btn btn-ghost" href="#prompt"><svg class="ic"><use href="#i-dragon"/></svg>交给智能体</a>
+        </div>
+        <p class="status" id="mintStatus"></p>
+      </div>
+      <div class="card" id="prompt">
+        <p class="kicker" style="letter-spacing:.2em">智能体指令</p>
+        <h3>生成指令，<em>交给你的智能体</em>。</h3>
+        <p>在下方粘贴你的钱包地址，即可生成一条可直接使用的指令。把整段复制给你的 AI 智能体，它会阅读 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>、完成核查并准备铸造——发送前仍会征求你的批准。$LONG 的买卖属于协议部分（见下方曲线），合约上线后开放。</p>
+        <label class="fl" for="walletIn">你的钱包地址（用于智能体指令）</label>
+        <input type="text" id="walletIn" placeholder="在此粘贴你的 0x… 钱包地址" autocomplete="off" spellcheck="false" />
+        <label class="fl" for="promptOut">指令 — 可直接粘贴到你的 AI 智能体</label>
+        <textarea id="promptOut" readonly></textarea>
+        <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem">
+          <button class="btn btn-gold" id="copyBtn"><svg class="ic"><use href="#i-copy"/></svg>复制智能体指令</button>
+          <a class="btn btn-ghost" href="#protokol"><svg class="ic"><use href="#i-scroll"/></svg>阅读协议</a>
+        </div>
+        <p class="status" id="copyStatus"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL / CURVE -->
+<section id="protokol">
+  <div class="wrap two-col">
+    <div>
+      <p class="kicker">协议</p>
+      <h2 style="margin:.6rem 0 1rem">价格不是承诺。<br/><em>价格是公式。</em></h2>
+      <p class="lede">$LONG 在写入合约的恒定乘积曲线上交易。任何人都可以算出任意一点的价格，每一笔交易都沿着这条曲线移动。</p>
+      <div class="formula" style="margin-top:1.4rem">(Vb + x) · T = Vb · Vt
+P(x) = (Vb + x)² / (Vb · Vt)
+
+Vb = 8 BNB
+Vt = 88,880,000 $LONG
+
+起始价格 = Vb / Vt = 0.00000009 BNB
+—— 与上方数据栏显示的价格相同。
+滑块上的现货价格为你所选曲线点的模拟值。</div>
+      <p style="margin-top:1.2rem"><a href="#token" style="font-weight:800">查看 $LONG 代币经济学 →</a></p>
+      <label class="fl" for="curveRange">滑动模拟：流入曲线的 BNB</label>
+      <input type="range" id="curveRange" min="0" max="30" step="0.5" value="0" />
+    </div>
+    <div class="curve-box">
+      <svg viewBox="0 0 560 300" width="100%" role="img" aria-label="$LONG 联合曲线图表">
+        <defs>
+          <linearGradient id="cg" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#d9a93c" stop-opacity="0"/>
+            <stop offset="1" stop-color="#d9a93c" stop-opacity=".35"/>
+          </linearGradient>
+        </defs>
+        <g stroke="rgba(128,128,128,.25)"><line x1="60" y1="20" x2="60" y2="260"/><line x1="220" y1="20" x2="220" y2="260"/><line x1="380" y1="20" x2="380" y2="260"/><line x1="540" y1="20" x2="540" y2="260"/></g>
+        <path id="curveFill" d="M60,252 Q300,235 540,40 L540,260 L60,260 Z" fill="url(#cg)"/>
+        <path d="M60,252 Q300,235 540,40" fill="none" stroke="#d9a93c" stroke-width="2.5"/>
+        <circle id="curveDot" cx="68" cy="251" r="6" fill="#fff" stroke="#d9a93c" stroke-width="3"/>
+        <g fill="#84937f" font-size="12" font-family="JetBrains Mono, monospace">
+          <text x="52" y="282">0 BNB</text><text x="200" y="282">10 BNB</text><text x="360" y="282">20 BNB</text><text x="500" y="282">30 BNB</text>
+        </g>
+      </svg>
+      <div class="curve-stats">
+        <div><small>模拟点</small><b id="csPos">0 BNB</b></div>
+        <div><small>现货价格（模拟）</small><b id="csSpot">0.00000009 BNB</b></div>
+        <div><small>已售代币（模拟）</small><b id="csSold">0</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOKENOMICS -->
+<section id="token">
+  <div class="wrap">
+    <p class="kicker">$LONG · 龙币</p>
+    <h2 style="margin:.6rem 0 .8rem">供应固定。<em>写入合约。</em></h2>
+    <p class="lede">$LONG 的最大供应量写在代币合约中。没有任何提前发行——代币只在神龙被铸造或在曲线上被买入时产生。</p>
+    <div class="token-bar"><div class="a" style="flex:2"></div><div class="b" style="flex:1"></div></div>
+    <div class="cards2">
+      <div class="card"><p><span style="color:var(--gold)">■</span> <b>NFT 铸造</b></p><h3>88,880,000</h3><p>每个 NFT 10,000 枚——只为已铸造的神龙发行。</p></div>
+      <div class="card"><p><span style="color:var(--jade)">■</span> <b>站内市场</b></p><h3>44,440,000</h3><p>在联合曲线上出售，并在同一市场从买家手中回购。</p></div>
+    </div>
+    <p class="mono" style="margin-top:1rem;color:var(--muted)">总量上限：133,320,000 $LONG</p>
+    <div class="checks">
+      <span>无团队份额</span><span>无代币税</span><span>无代币所有者</span><span>无单独领取</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="kelas">
+  <div class="wrap">
+    <p class="kicker">智能体生态</p>
+    <h2 style="margin:.6rem 0 .8rem">5 大职业。<em>一支神龙军团。</em></h2>
+    <p class="lede">每条创世神龙都属于一个职业，该职业决定其智能体未来要做的事。</p>
+    <div class="class-grid" style="margin-top:2rem">
+      <div class="ccard"><img src="assets/img-06.webp" alt="珍珠神龙，智者职业"/><div class="body"><span class="dot" style="background:#e8e3d0"></span><h4>智者 · <span class="cn">智龙</span></h4><p>为主人做研究、知识整理与分析。</p><a href="#agen">查看此职业 →</a></div></div>
+      <div class="ccard"><img src="assets/img-05.webp" alt="金色神龙，商人职业"/><div class="body"><span class="dot" style="background:var(--gold)"></span><h4>商人 · <span class="cn">商龙</span></h4><p>盯盘市场：代币研究、提醒与投资组合分析。</p><a href="#agen">查看此职业 →</a></div></div>
+      <div class="ccard"><img src="assets/img-07.webp" alt="黑曜神龙，匠人职业"/><div class="body"><span class="dot" style="background:#3b82f6"></span><h4>匠人 · <span class="cn">匠龙</span></h4><p>构建支持、合约监控与自动化。</p><a href="#agen">查看此职业 →</a></div></div>
+      <div class="ccard"><img src="assets/img-03.webp" alt="青色神龙，探险家职业"/><div class="body"><span class="dot" style="background:#38bdf8"></span><h4>探险家 · <span class="cn">探龙</span></h4><p>链上探索、钱包追踪与生态研究。</p><a href="#agen">查看此职业 →</a></div></div>
+      <div class="ccard"><img src="assets/img-04.webp" alt="朱红神龙，守护者职业"/><div class="body"><span class="dot" style="background:var(--red)"></span><h4>守护者 · <span class="cn">卫龙</span></h4><p>运行工作流、管理任务，并协调其他智能体。</p><a href="#agen">查看此职业 →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAITS -->
+<section>
+  <div class="wrap">
+    <p class="kicker">属性</p>
+    <h2 style="margin:.6rem 0 .8rem">每个属性的<em>精确数字</em>。</h2>
+    <p class="lede">类别与稀有度写在每条神龙的元数据里。以下数字直接统计自已生成的全部 8,888 份元数据——不是估算，任何人拿到元数据都能重新数一遍验证。</p>
+    <div class="trait-grid" style="margin-top:1.8rem">
+      <div class="tpanel"><h3 style="margin-top:0">稀有度</h3>
+        <div class="trow"><div class="top"><span>普通</span><span><b>4,444</b> (50.0%)</span></div><div class="bar"><i style="width:50%"></i></div></div>
+        <div class="trow"><div class="top"><span>优秀</span><span><b>2,222</b> (25.0%)</span></div><div class="bar"><i style="width:25%"></i></div></div>
+        <div class="trow"><div class="top"><span>稀有</span><span><b>1,334</b> (15.0%)</span></div><div class="bar"><i style="width:15%"></i></div></div>
+        <div class="trow"><div class="top"><span>史诗</span><span><b>622</b> (7.0%)</span></div><div class="bar"><i style="width:7%"></i></div></div>
+        <div class="trow"><div class="top"><span>传说</span><span><b>222</b> (2.5%)</span></div><div class="bar"><i style="width:2.5%"></i></div></div>
+        <div class="trow"><div class="top"><span>神话</span><span><b>44</b> (0.5%)</span></div><div class="bar"><i style="width:2.5%;background:linear-gradient(90deg,var(--red),var(--gold))"></i></div></div>
+      </div>
+      <div class="tpanel"><h3 style="margin-top:0">龙的类别</h3>
+        <div class="trow"><div class="top"><span>青龙 Azure</span><span><b>1,778</b> (20.0%)</span></div><div class="bar"><i style="width:20%"></i></div></div>
+        <div class="trow"><div class="top"><span>朱龙 Vermilion</span><span><b>1,778</b> (20.0%)</span></div><div class="bar"><i style="width:20%"></i></div></div>
+        <div class="trow"><div class="top"><span>金龙 Golden</span><span><b>1,778</b> (20.0%)</span></div><div class="bar"><i style="width:20%"></i></div></div>
+        <div class="trow"><div class="top"><span>黑曜 Obsidian</span><span><b>1,778</b> (20.0%)</span></div><div class="bar"><i style="width:20%"></i></div></div>
+        <div class="trow"><div class="top"><span>珍珠 Pearl</span><span><b>1,776</b> (20.0%)</span></div><div class="bar"><i style="width:20%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LORE -->
+<section id="lore" class="lore">
+  <div class="giant cn">神龙</div>
+  <div class="wrap">
+    <p class="kicker">传说 · 为你解答</p>
+    <h2 style="margin:.6rem 0 .8rem">中国神圣之龙<br/>名为<em>神龙</em>。</h2>
+    <p class="lede" style="position:relative"><b class="cn" style="font-size:1.15em">神龙（Shénlóng）</b>——简单来说就是<b>“神圣之龙”</b>：“神”意为神明或神圣灵体，“龙”即龙。在中国神话中，神龙是掌管<b>雨水、江河与天气</b>的灵龙。它的力量决定收成，因此农民、渔民与帝王都尊崇它。与西方可怕的龙不同，中国龙是<b>好运、力量与财富</b>的象征。</p>
+    <div class="lore-grid">
+      <div class="lore-card"><span class="seal" style="font-size:.95rem">雨</span><h4>雨水与天气之主</h4><p>干旱时，人们向神龙祈求，并在龙王庙献上供品，祈求降雨落下、江河不泛滥。</p></div>
+      <div class="lore-card"><span class="seal" style="font-size:.95rem">珠</span><h4>智慧宝珠</h4><p>神龙常被描绘为追逐或怀抱一颗发光的宝珠——象征智慧、圆满与神圣力量。</p></div>
+      <div class="lore-card"><span class="seal" style="font-size:.95rem">愿</span><h4>实现愿望者</h4><p>在民间传说中，真心召唤神龙可以实现一个愿望。正是这条龙，后来启发了现代流行文化中的许愿神龙。</p></div>
+    </div>
+    <div style="overflow-x:auto;position:relative">
+    <table class="names">
+      <tr><th>名称</th><th>汉字 · 拼音</th><th>含义</th></tr>
+      <tr><td>神龙</td><td class="cn">神龙 · Shénlóng</td><td>神圣之龙——掌管雨水与天气。本项目采用的正是它。</td></tr>
+      <tr><td>龙王</td><td class="cn">龙王 · Lóngwáng</td><td>龙王——海洋与水域的统治者，居住在海底龙宫。</td></tr>
+      <tr><td>青龙</td><td class="cn">青龙 · Qīnglóng</td><td>青龙——东方与春天的守护者，四象之一。</td></tr>
+      <tr><td>应龙</td><td class="cn">应龙 · Yìnglóng</td><td>远古有翼之龙——传说中黄帝征战时的助手。</td></tr>
+      <tr><td>天龙</td><td class="cn">天龙 · Tiānlóng</td><td>天龙——天界神明居所的守护者。</td></tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<div class="cloudband" role="img" aria-label="神龙在祥云中飞翔"></div>
+
+<!-- CONTRACTS -->
+<section>
+  <div class="wrap">
+    <p class="kicker">链上信息</p>
+    <h2 style="margin:.6rem 0 .8rem"><em>BNB 链</em>上的 4 个合约。</h2>
+    <p class="lede">设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：<b>尚未部署</b>——以下地址为占位符，并非真实地址。上线后，每个地址都会链接到 <a href="https://bscscan.com" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">BscScan</a> 上已验证的合约页面；智能体说明文件 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a> 现在就能打开。</p>
+    <div class="contract-grid" style="margin-top:1.8rem">
+      <div class="contract"><span class="tag">尚未部署</span><h3>ShenlongGenesis</h3><small>ERC-721 藏品合约</small><p>负责铸造规则——每钱包最多 5 个——以及 Agent ID 核查、PuzzlePass、向金库付款与代币分发。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
+      <div class="contract"><span class="tag">尚未部署</span><h3>LONG</h3><small>ERC-20 代币</small><p>上限 133,320,000。无所有者，无税费。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
+      <div class="contract"><span class="tag">尚未部署</span><h3>LongMarket</h3><small>站内市场</small><p>在恒定乘积联合曲线上交易 $LONG ↔ BNB。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
+      <div class="contract"><span class="tag">尚未部署</span><h3>ShenlongMarketplace</h3><small>NFT 交易市场</small><p>处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <p class="kicker">路线图</p>
+    <h2 style="margin:.6rem 0 2rem">已完成什么，<em>接下来做什么。</em></h2>
+    <div class="road">
+      <div class="item done"><p class="kicker" style="letter-spacing:.2em">阶段 1 · 概念与藏品</p><h4>身份、传说与全套藏品</h4><p>神龙之名、传说故事与水墨艺术风格已定；全套 8,888 张图与 8,888 份元数据已经全部生成并逐一校验（零重复），类别与稀有度分布见上方属性部分。</p></div>
+      <div class="item done"><p class="kicker" style="letter-spacing:.2em">阶段 2 · 协议设计</p><h4>铸造、曲线与代币经济学</h4><p>Agent ID + PuzzlePass 铸造规则、$LONG 联合曲线公式，以及 133,320,000 代币分配已设计完成。</p></div>
+      <div class="item"><p class="kicker" style="letter-spacing:.2em">阶段 3 · 下一步</p><h4>部署并验证合约</h4><p>将 4 个合约部署到 BNB 链，在 BscScan 上验证源代码，并公布官方地址。</p></div>
+      <div class="item"><p class="kicker" style="letter-spacing:.2em">阶段 4 · 运行层</p><h4>鲜活的智能体</h4><p>为每个职业打造智能体运行层：任务队列、声誉系统与神龙智能体排行榜。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding-top:20px">
+  <div class="wrap" style="max-width:860px">
+    <p class="kicker">常见问题</p>
+    <h2 style="margin:.6rem 0 1.6rem">常见<em>问题</em></h2>
+    <details><summary>“神龙”这个名字是什么意思？</summary><p>神龙（Shénlóng）意为“神圣之龙”。它是中国传说中的神龙——掌管雨水、江河与天气，是好运与财富的象征。其他神龙名称请见上方的传说部分。</p></details>
+    <details><summary>为什么供应量是 8,888 而不是 10,000？</summary><p>数字 8（八）是中国文化中最吉利的数字，因为它与“发”（繁荣）谐音。8,888 意味着四倍的好运——也让神龙有别于常见的 10,000 件藏品。</p></details>
+    <details><summary>自己铸造和用智能体铸造有什么区别？</summary><p>结果相同：NFT + 10,000 $LONG。区别在于由谁来操作。用智能体铸造时，你的 AI 智能体会阅读说明、解开谜题并准备交易——你只需粘贴本页生成的指令并批准最终交易。</p></details>
+    <details><summary>一个钱包最多可以铸造多少个？</summary><p>每钱包最多 5 个。智能体钱包的 1 次免费铸造也计入这 5 个之内。本页的数量选择器最高为 5，合约也会核查同样的上限。</p></details>
+    <details><summary>合约已经上线了吗？</summary><p>还没有。本页是包含完整协议设计的概念预览。在官方地址公布并在 BscScan 上验证之前，请勿向任何自称神龙智能体的地址发送资金。</p></details>
+    <details><summary>什么是 $LONG？</summary><p>$LONG（取自“龙”lóng）是本藏品的 ERC-20 代币：每次铸造附带 10,000 $LONG，其余在站内市场的联合曲线上交易。总量上限为 133,320,000。</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="logo" href="#top" aria-label="Shenlong Agent — home"><span class="logo-mark" aria-hidden="true"><svg class="logo-swirl" viewBox="0 0 48 48" fill="none"><path d="M9 33C7 23 14 14 23 13.5c7.5-.4 13.5 4.8 12.6 10.6-.7 5-6.2 7.3-9.6 4.4-2.6-2.2-1.2-6.8 2.4-7.4" stroke="#f0cd6e" stroke-width="2.6" stroke-linecap="round"/><path d="M34.6 12.6 40 8.4l-1.2 6.4M34.6 12.6l6.4 1.2-5.4 3.2" stroke="#f0cd6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13.5" cy="37" r="3.2" fill="#fff3d6" stroke="#f0cd6e" stroke-width="1.6"/></svg><span class="logo-hanzi">神龙</span></span><span class="logo-word"><b>SHEN<em>LONG</em></b><small>智能体 · 神龙赐福</small></span></a>
+      <p style="margin-top:1rem">BNB 链上的 8,888 条神龙——每条神龙都是一个 NFT、一份 $LONG，以及一个能自主工作的 AI 智能体。神龙赐福 · 愿神龙保佑你。</p>
+    </div>
+    <div>
+      <p><b style="color:var(--ink)">探索</b><br/><a href="#mint">铸造</a> · <a href="#agen">智能体</a> · <a href="#koleksi">藏品</a> · <a href="#kelas">职业</a> · <a href="#lore">传说</a></p>
+      <p><b style="color:var(--ink)">链接</b><br/><a href="https://bscscan.com" target="_blank" rel="noopener">BscScan（合约上线后在此核对）</a> · <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt 智能体说明</a></p>
+      <p>概念预览——不构成任何金融要约。交易前请务必在 BscScan 上核对合约地址。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile menu
+  var burger=document.getElementById('burger'), mm=document.getElementById('mobileMenu');
+  burger.addEventListener('click',function(){ mm.classList.toggle('open'); });
+  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ mm.classList.remove('open'); }); });
+
+  // Marquee duplicate for seamless loop
+  var mq=document.getElementById('mqTrack'); mq.innerHTML += mq.innerHTML;
+
+  // Gallery filter
+  var btns=document.querySelectorAll('.filters button');
+  btns.forEach(function(b){ b.addEventListener('click',function(){
+    btns.forEach(function(x){x.classList.remove('on')}); b.classList.add('on');
+    var f=b.getAttribute('data-f');
+    document.querySelectorAll('.gcard').forEach(function(c){
+      c.style.display=(f==='all'||c.getAttribute('data-c')===f)?'':'none';
+    });
+  }); });
+
+  // ===== Wallet connect — real EIP-1193 flow, OKX first, BNB Chain (56) =====
+  var account=null, chainOk=false;
+  var connectLabel=document.getElementById('connectLabel');
+  function getProvider(){ return window.okxwallet || window.ethereum || null; }
+  function shortAddr(a){ return a.slice(0,6)+'…'+a.slice(-4); }
+  function paintConnect(){
+    if(account){ connectLabel.textContent=shortAddr(account)+(chainOk?' · BNB':' · 链不对'); }
+    else { connectLabel.textContent=(window.__lang==='en')?'Connect Wallet':'连接钱包'; }
+  }
+  function refreshChain(p){
+    return p.request({method:'eth_chainId'}).then(function(id){
+      chainOk=(parseInt(id,16)===56); paintConnect(); return chainOk;
+    }).catch(function(){ chainOk=false; });
+  }
+  function ensureChain(p){
+    return refreshChain(p).then(function(ok){
+      if(ok) return true;
+      return p.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x38'}]})
+        .then(function(){ return refreshChain(p); })
+        .catch(function(err){
+          if(err && err.code===4902){
+            return p.request({method:'wallet_addEthereumChain',params:[{chainId:'0x38',chainName:'BNB Smart Chain',nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},rpcUrls:['https://bsc-dataseed.binance.org'],blockExplorerUrls:['https://bscscan.com']}]})
+              .then(function(){ return refreshChain(p); });
+          }
+          throw err;
+        });
+    });
+  }
+  window.__connectWallet=function(){
+    var p=getProvider();
+    var st=document.getElementById('mintStatus');
+    if(!p){
+      st.textContent=(window.__lang==='en')
+        ? 'No EVM wallet found in this browser. Install OKX Wallet or open this page inside the Binance / OKX app, then try again.'
+        : '未在此浏览器中检测到 EVM 钱包。请安装 OKX Wallet，或在币安 / OKX App 内打开本页后重试。';
+      document.getElementById('mint').scrollIntoView({behavior:'smooth'});
+      return Promise.resolve(false);
+    }
+    return p.request({method:'eth_requestAccounts'}).then(function(accs){
+      account=(accs&&accs[0])||null; paintConnect();
+      return ensureChain(p);
+    }).then(function(){
+      paintConnect(); return !!account;
+    }).catch(function(){
+      st.textContent=(window.__lang==='en')?'Wallet connection was rejected or failed. Nothing was sent.':'钱包连接被拒绝或失败，未发送任何交易。';
+      return false;
+    });
+  };
+  document.getElementById('connectBtn').addEventListener('click',function(){ window.__connectWallet(); });
+  var mc=document.getElementById('mConnect');
+  mc.addEventListener('click',function(e){ e.preventDefault(); mm.classList.remove('open'); window.__connectWallet(); });
+  (function(){
+    var p=getProvider(); if(!p||!p.on) return;
+    p.on('accountsChanged',function(accs){ account=(accs&&accs[0])||null; paintConnect(); });
+    p.on('chainChanged',function(){ refreshChain(p); });
+  })();
+
+  // Qty stepper
+  var qty=1, qOut=document.getElementById('qtyOut'), qTot=document.getElementById('qtyTotal');
+  function renderQty(){ qOut.textContent=qty; qTot.textContent=(qty*0.001).toFixed(3)+' BNB'; buildPrompt(); }
+  document.getElementById('qPlus').addEventListener('click',function(){ if(qty<5) qty++; renderQty(); });
+  document.getElementById('qMinus').addEventListener('click',function(){ if(qty>1) qty--; renderQty(); });
+  document.getElementById('mintBtn').addEventListener('click',function(){
+    var st=document.getElementById('mintStatus'), en=(window.__lang==='en');
+    if(!account){
+      window.__connectWallet().then(function(ok){
+        if(ok) st.textContent=en
+          ? 'Wallet connected: '+account+'. Minting is not open yet — the Shenlong contract is not deployed, so no transaction can be sent. The official address will be announced through official channels only.'
+          : '钱包已连接：'+account+'。但铸造尚未开放——神龙合约尚未部署，暂时无法真正发送铸造交易。官方地址只会通过官方渠道公布。';
+      });
+      return;
+    }
+    if(!chainOk){
+      ensureChain(getProvider()).then(function(ok){
+        st.textContent=ok
+          ? (en?'Switched to BNB Chain. Minting is still not open — the contract is not deployed yet.':'已切换到 BNB 链。但铸造仍未开放——合约尚未部署。')
+          : (en?'Please switch your wallet to BNB Chain (chain ID 56) first.':'请先在钱包中切换到 BNB 链（chain ID 56）。');
+      });
+      return;
+    }
+    st.textContent=en
+      ? 'Wallet ready on BNB Chain ('+shortAddr(account)+'). Minting opens only after the contract is deployed and verified on BscScan — until then this button sends nothing.'
+      : '钱包已就绪（BNB 链，'+shortAddr(account)+'）。铸造要等合约部署并在 BscScan 验证后才开放——在此之前，本按钮不会发送任何交易。';
+  });
+
+  // Agent prompt generator
+  var wIn=document.getElementById('walletIn'), pOut=document.getElementById('promptOut');
+  function buildPrompt(){
+    var w=(wIn.value||'').trim()||(window.__lang==='en'?'0xMYWALLET':'0x我的钱包');
+    if(window.__lang==='en'){
+      pOut.value =
+'You are an AI agent minting a Shenlong Agent NFT (BNB Chain).\n\n'+
+'Task: paid-mint '+qty+' Shenlong for wallet '+w+'.\n\n'+
+'Rules:\n'+
+'1. Read the official instructions at /agent.txt on the Shenlong Agent website and follow them exactly.\n'+
+'2. Prove you are an agent wallet with your Agent ID (walletStatus()).\n'+
+'3. Solve the puzzle to obtain a PuzzlePass (EIP-712), valid for 15 minutes.\n'+
+'4. Price: 0.001 BNB x '+qty+' = '+(qty*0.001).toFixed(3)+' BNB. Each mint delivers one NFT + 10,000 $LONG.\n'+
+'5. Cap: max 5 per wallet. First count how many Shenlong this wallet already holds; mint at most up to 5 total.\n'+
+'6. The official contract is only the one verified on BscScan and announced through official channels. If it has not been announced, stop at once and report back to me.\n'+
+'7. Show me a summary of the transaction and ask for my approval before sending. Never ask me for a private key or seed phrase.';
+      return;
+    }
+    pOut.value =
+'你是一个 AI 智能体，正在铸造神龙智能体 NFT（BNB 链）。\n\n'+
+'任务：为钱包 '+w+' 付费铸造 '+qty+' 条神龙。\n\n'+
+'规则：\n'+
+'1. 阅读神龙智能体网站上的官方说明 /agent.txt，并严格照做。\n'+
+'2. 用你的 Agent ID 证明你是智能体钱包（walletStatus()）。\n'+
+'3. 解开谜题，获得 PuzzlePass（EIP-712），有效期 15 分钟。\n'+
+'4. 价格：0.001 BNB x '+qty+' = '+(qty*0.001).toFixed(3)+' BNB。每次铸造获得一个 NFT + 10,000 $LONG。\n'+
+'5. 上限：每钱包最多 5 个。先统计该钱包已持有的神龙数量，总数最多铸造到 5 个。\n'+
+'6. 官方合约仅指在 BscScan 上已验证并通过官方渠道公布的那一个。若尚未公布，请立即停止并向我汇报。\n'+
+'7. 发送前先向我展示交易摘要并征求我的批准。绝不要向我索要私钥或助记词。';
+  }
+  wIn.addEventListener('input',buildPrompt);
+  buildPrompt(); renderQty();
+
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var done=function(){ document.getElementById('copyStatus').textContent=(window.__lang==='en')
+      ? '✓ Prompt copied. Paste it into your AI agent (Binance Agentic Wallet, or any agent you like).'
+      : '✓ 指令已复制。将其粘贴到你的 AI 智能体中（Binance Agentic Wallet 或你喜欢的智能体）。'; };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(pOut.value).then(done).catch(function(){ pOut.select(); document.execCommand('copy'); done(); }); }
+    else { pOut.select(); document.execCommand('copy'); done(); }
+  });
+
+  // Bonding curve simulation: Vb=8, Vt=88,880,000 ; spot P=(Vb+x)^2/(Vb*Vt) in BNB per LONG (scaled display)
+  var range=document.getElementById('curveRange'), dot=document.getElementById('curveDot');
+  function renderCurve(){
+    var x=parseFloat(range.value);
+    var Vb=8, Vt=88880000;
+    var spot=((Vb+x)*(Vb+x))/(Vb*Vt); // BNB per token
+    var sold=Math.round(Vt*(1 - Vb/(Vb+x))); // tokens bought along curve (approx constant-product)
+    document.getElementById('csPos').textContent=x.toFixed(1)+' BNB';
+    document.getElementById('csSpot').textContent=spot.toFixed(8)+' BNB';
+    document.getElementById('csSold').textContent=sold.toLocaleString('zh-CN');
+    var t=x/30, cx=60+t*480, cy=252 - Math.pow(t,1.6)*212;
+    dot.setAttribute('cx',cx); dot.setAttribute('cy',cy);
+  }
+  range.addEventListener('input',renderCurve); renderCurve();
+
+  // ===== Language toggle 中文 / EN — in-page dictionary over visible text =====
+  window.__lang='zh';
+  var EN={
+    '连接钱包':'Connect Wallet','铸造':'Mint','智能体':'Agents','藏品':'Collection','职业':'Classes','协议':'Protocol','传说':'Lore','路线图':'Roadmap','神龙传说':'Dragon Lore',
+    '/agent.txt — 智能体说明':'/agent.txt — Agent Instructions','智能体 · 神龙赐福':'AGENTS · SHENLONG BLESSING','神龙现世':'THE DRAGON AWAKENS','神龙创世 / BNB 链':'SHENLONG GENESIS / BNB CHAIN',
+    '让你的':'Bring your','神龙':'Shenlong','活过来。':'to life.','8,888 条神龙。8,888 个自主运行的智能体。':'8,888 dragons. 8,888 agents that run on their own.',
+    '铸造神龙 →':'Mint a Shenlong →','查看藏品':'View the Collection','用 AI 智能体铸造':'Mint with an AI Agent',
+    '为什么是 8,888？在中国文化中，8（八）是最吉利的数字——象征财富与好运，四倍的吉祥。':'Why 8,888? In Chinese culture 8 is the luckiest number — wealth and good fortune. Four 8s, four times the luck.',
+    '神龙赐福':'Shenlong Blessing','智慧宝珠':'Pearl of Wisdom','神龙追逐的智慧象征':'The wisdom the dragon chases',
+    '总供应量':'Total Supply','已铸造':'Minted','0 — 尚未开放':'0 — Not open yet','剩余':'Remaining','铸造价格':'Mint Price','每钱包上限':'Max per Wallet','$LONG 起始价格 *':'$LONG Start Price *','每次铸造奖励':'Reward per Mint',
+    '水墨绘成的神龙。':'Dragons painted in ink.','每一条都独一无二。':'Every one unique.','每条神龙都由独特的鳞片、龙角、元素、御用装备与稀有度组合而成——以水墨与金粉绘就，而非像素。':'Every Shenlong is a unique mix of scales, horns, element, imperial gear and rarity — painted in ink and gold dust, never pixels.','查看 5 大神龙职业 →':'See the 5 dragon classes →',
+    '全部':'All','智者':'Sage','商人':'Trader','匠人':'Builder','探险家':'Explorer','守护者':'Guardian',
+    '什么是智能体':'What Is an Agent','为':'Built for','能自主行动的软件':'software that acts','而建。':'on its own.','大多数 NFT 项目是为手动点击的人设计的。神龙同时也是为智能体设计的：它会阅读规则、核查链上信息、准备交易，并在行动前征求主人的确认。':'Most NFT projects are built for humans clicking by hand. Shenlong is also built for agents: it reads the rules, checks the chain, prepares the transaction, and asks its owner before it acts.',
+    '三层架构中有两层已为主网完成设计。运行层接下来开发。':'Two of the three layers are designed for mainnet. The runtime layer comes next.','让智能体来铸造 →':'Let an agent mint →','阅读协议':'Read the Protocol',
+    '● 已就绪（设计）':'● Ready (design)','身份层':'Identity Layer','执行层':'Execution Layer','运行层':'Runtime Layer','即将推出':'Coming Soon',
+    '智能体是谁？':'Who is the agent?','钱包通过 Agent ID 证明自己是智能体钱包。合约会在链上读取验证。':'A wallet proves it is an agent wallet with an Agent ID. The contract reads and verifies it on-chain.',
+    '它如何行动？':'How does it act?','智能体阅读说明、解开谜题、自行核查交易，然后在发送前请主人确认。':'The agent reads the instructions, solves the puzzle, checks the transaction itself, then asks its owner before sending.',
+    '接下来是什么？':'What comes next?','每条神龙的职业决定其未来智能体的形态——执行任务并积累履历的智能体。':'Each dragon\u2019s class shapes its future agent — an agent that runs tasks and builds a track record.',
+    '智能体专区':'For Agents','让你的智能体':'Let your agent','完成整个铸造':'do the whole mint','给你的 AI 智能体一条指令，它就能从头到尾完成铸造。你只需批准它发送的交易。':'Give your AI agent one instruction and it completes the mint end to end. You only approve the transaction it sends.','生成智能体指令 ↓':'Generate the agent prompt ↓',
+    '在币安 App 中扫描二维码，或告诉智能体使用哪个钱包。只会共享钱包地址。':'Scan the QR code in the Binance app, or tell the agent which wallet to use. Only the wallet address is shared.',
+    '智能体阅读说明':'The Agent Reads the Instructions','一个文本文件':'One text file','，包含合约、规则、步骤以及可能出现的错误。现在就能打开阅读。':' with the contract, rules, steps and possible errors. You can open and read it right now.',
+    '解开谜题':'Solve the Puzzle','智能体解答一道数学题，获得一张签名通行证，仅对该钱包有效，有效期 15 分钟。':'The agent solves a math puzzle and receives a signed pass bound to that wallet only, valid for 15 minutes.',
+    '合约核查':'The Contract Checks','合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。交易发送前由你批准。':'The contract verifies the pass and the Agent ID on-chain and enforces the cap: max 5 per wallet. You approve before anything is sent.',
+    '神龙到账':'The Dragon Arrives','NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图立即显示。':'The NFT + 10,000 $LONG arrive in 1 transaction, and the artwork shows at once.',
+    '开始使用':'Get Started','有':'Two','两种方式':'ways','可以开始。':'to begin.','铸造神龙':'Mint a Shenlong','每次铸造都附带':'Every mint comes with','。':'.',
+    'NFT 与 10,000 $LONG 会在一笔交易中进入你的钱包。智能体钱包可获得':'The NFT and 10,000 $LONG land in your wallet in one transaction. Agent wallets get','1 次免费铸造':'one free mint','（只需支付少量网络费）。付费铸造向所有人开放。上限：':' (network gas still applies). Paid minting is open to everyone. Cap:','每钱包最多 5 个':'max 5 per wallet','。':' .',
+    '0 / 8,888 — 尚未开放':'0 / 8,888 — Not open yet','付费铸造':'Paid Mint','代币奖励':'Token Reward','付费铸造数量（每钱包最多 5 个）':'Paid mint amount (max 5 per wallet)','总计：':'Total: ','交给智能体':'Let the Agent Do It',
+    '智能体指令':'Agent Prompt','生成指令，':'Generate the prompt,','交给你的智能体':'hand it to your agent','在下方粘贴你的钱包地址，即可生成一条可直接使用的指令。把整段复制给你的 AI 智能体，它会阅读':'Paste your wallet address below to generate a ready-to-use prompt. Copy the whole block to your AI agent — it will read','、完成核查并准备铸造——发送前仍会征求你的批准。$LONG 的买卖属于协议部分（见下方曲线），合约上线后开放。':', verify everything and prepare the mint — and still ask for your approval before sending. Buying and selling $LONG belongs to the protocol section (the curve below) and opens after the contracts launch.',
+    '你的钱包地址（用于智能体指令）':'Your wallet address (used in the agent prompt)','指令 — 可直接粘贴到你的 AI 智能体':'Prompt — paste this into your AI agent','复制智能体指令':'Copy the Agent Prompt',
+    '价格不是承诺。':'Price is not a promise.','价格是公式。':'Price is a formula.','$LONG 在写入合约的恒定乘积曲线上交易。任何人都可以算出任意一点的价格，每一笔交易都沿着这条曲线移动。':'$LONG trades on a constant-product curve written into the contract. Anyone can compute the price at any point, and every trade moves along the curve.',
+    '查看 $LONG 代币经济学 →':'See the $LONG tokenomics →','滑动模拟：流入曲线的 BNB':'Slide to simulate: BNB flowing into the curve','模拟点':'Sim Point','现货价格（模拟）':'Spot Price (sim)','已售代币（模拟）':'Tokens Sold (sim)',
+    '$LONG · 龙币':'$LONG · Dragon Coin','供应固定。':'Supply is fixed.','写入合约。':'Written in the contract.','$LONG 的最大供应量写在代币合约中。没有任何提前发行——代币只在神龙被铸造或在曲线上被买入时产生。':'The max supply of $LONG is written into the token contract. Nothing is pre-issued — tokens only come into existence when a Shenlong is minted or bought on the curve.',
+    'NFT 铸造':'NFT Minting','每个 NFT 10,000 枚——只为已铸造的神龙发行。':'10,000 per NFT — issued only for minted Shenlong.','站内市场':'On-site Market','在联合曲线上出售，并在同一市场从买家手中回购。':'Sold on the bonding curve, and bought back from holders in the same market.',
+    '总量上限：133,320,000 $LONG':'Hard cap: 133,320,000 $LONG','无团队份额':'No team share','无代币税':'No token tax','无代币所有者':'No token owner','无单独领取':'No separate claim',
+    '智能体生态':'Agent Ecosystem','5 大职业。':'5 classes.','一支神龙军团。':'One dragon legion.','每条创世神龙都属于一个职业，该职业决定其智能体未来要做的事。':'Every genesis Shenlong belongs to a class, and that class decides what its agent will do.',
+    '为主人做研究、知识整理与分析。':'Research, knowledge work and analysis for its owner.','盯盘市场：代币研究、提醒与投资组合分析。':'Watches markets: token research, alerts and portfolio analysis.','构建支持、合约监控与自动化。':'Build support, contract monitoring and automation.','链上探索、钱包追踪与生态研究。':'On-chain exploration, wallet tracking and ecosystem research.','运行工作流、管理任务，并协调其他智能体。':'Runs workflows, manages tasks and coordinates other agents.','查看此职业 →':'View this class →',
+    '属性':'Traits','每个属性的':'The exact numbers','精确数字':'for every trait','类别与稀有度写在每条神龙的元数据里。以下数字直接统计自已生成的全部 8,888 份元数据——不是估算，任何人拿到元数据都能重新数一遍验证。':'Class and rarity live in each dragon\u2019s metadata. The numbers below are counted directly from all 8,888 generated metadata files — not estimates. Anyone with the metadata can recount and verify.',
+    '稀有度':'Rarity','普通':'Common','优秀':'Uncommon','稀有':'Rare','史诗':'Epic','传说':'Legendary','神话':'Mythic','龙的类别':'Dragon Class',
+    '传说 · 为你解答':'Lore · Explained for You','中国神圣之龙':'China\u2019s divine dragon','名为':'is named','雨水与天气之主':'Lord of Rain and Weather','干旱时，人们向神龙祈求，并在龙王庙献上供品，祈求降雨落下、江河不泛滥。':'In droughts, people prayed to Shenlong and left offerings at Dragon King temples, asking for rain to fall and rivers not to flood.',
+    '智慧宝珠':'The Pearl of Wisdom','神龙常被描绘为追逐或怀抱一颗发光的宝珠——象征智慧、圆满与神圣力量。':'Shenlong is often shown chasing or holding a glowing pearl — a symbol of wisdom, perfection and divine power.',
+    '实现愿望者':'The Wish Granter','在民间传说中，真心召唤神龙可以实现一个愿望。正是这条龙，后来启发了现代流行文化中的许愿神龙。':'In folk tales, summoning Shenlong with a true heart grants one wish. This is the dragon that later inspired the wish-granting dragon of modern pop culture.',
+    '名称':'Name','汉字 · 拼音':'Hanzi · Pinyin','含义':'Meaning','神圣之龙——掌管雨水与天气。本项目采用的正是它。':'The divine dragon — lord of rain and weather. This is the one this project uses.','龙王——海洋与水域的统治者，居住在海底龙宫。':'The Dragon King — ruler of seas and waters, living in an undersea palace.','青龙——东方与春天的守护者，四象之一。':'The Azure Dragon — guardian of the East and of spring, one of the Four Symbols.','远古有翼之龙——传说中黄帝征战时的助手。':'The ancient winged dragon — said to have aided the Yellow Emperor in battle.','天龙——天界神明居所的守护者。':'The Celestial Dragon — guardian of the heavens where the gods dwell.',
+    '链上信息':'On-Chain','上的 4 个合约。':' — 4 contracts.','设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：':'The design follows proven patterns: NFT, token, curve market and trading market. Real status:','尚未部署':'Not deployed','——以下地址为占位符，并非真实地址。上线后，每个地址都会链接到':' — the addresses below are placeholders, not real addresses. After launch, each one will link to the verified contract page on','上已验证的合约页面；智能体说明文件':' ; the agent instructions file','现在就能打开。':' can be opened right now.',
+    'ERC-721 藏品合约':'ERC-721 Collection Contract','负责铸造规则——每钱包最多 5 个——以及 Agent ID 核查、PuzzlePass、向金库付款与代币分发。':'Runs the mint rules — max 5 per wallet — plus Agent ID checks, PuzzlePass, payment to the vault and token distribution.',
+    'ERC-20 代币':'ERC-20 Token','上限 133,320,000。无所有者，无税费。':'Capped at 133,320,000. No owner, no taxes.','在恒定乘积联合曲线上交易 $LONG ↔ BNB。':'Trades $LONG ↔ BNB on a constant-product bonding curve.','NFT 交易市场':'NFT Marketplace','处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。':'Handles BNB-priced listings and offers. A listed Shenlong stays in the seller\u2019s wallet until it sells.','0x0000…0000 — 主网上线时公布':'0x0000…0000 — Announced at mainnet launch',
+    '已完成什么，':'What is done,','接下来做什么。':'what comes next.','阶段 1 · 概念与藏品':'Phase 1 · Concept & Collection','身份、传说与全套藏品':'Identity, Lore & the Full Collection','神龙之名、传说故事与水墨艺术风格已定；全套 8,888 张图与 8,888 份元数据已经全部生成并逐一校验（零重复），类别与稀有度分布见上方属性部分。':'The name, the lore and the ink-painting art style are set; all 8,888 images and 8,888 metadata files are generated and verified one by one (zero duplicates). See the Traits section above for class and rarity distribution.',
+    '阶段 2 · 协议设计':'Phase 2 · Protocol Design','铸造、曲线与代币经济学':'Minting, Curve & Tokenomics','Agent ID + PuzzlePass 铸造规则、$LONG 联合曲线公式，以及 133,320,000 代币分配已设计完成。':'The Agent ID + PuzzlePass mint rules, the $LONG bonding-curve formula and the 133,320,000 token allocation are fully designed.',
+    '阶段 3 · 下一步':'Phase 3 · Next','部署并验证合约':'Deploy & Verify the Contracts','将 4 个合约部署到 BNB 链，在 BscScan 上验证源代码，并公布官方地址。':'Deploy the 4 contracts to BNB Chain, verify the source on BscScan, and publish the official addresses.',
+    '阶段 4 · 运行层':'Phase 4 · Runtime','鲜活的智能体':'Living Agents','为每个职业打造智能体运行层：任务队列、声誉系统与神龙智能体排行榜。':'Build the agent runtime for every class: task queues, a reputation system and a Shenlong agent leaderboard.',
+    '常见问题':'FAQ','常见':'Frequently Asked','问题':'Questions',
+    '探索':'Explore','链接':'Links','BscScan（合约上线后在此核对）':'BscScan (verify contracts here after launch)','/agent.txt 智能体说明':'/agent.txt Agent Instructions',
+    '概念预览——不构成任何金融要约。交易前请务必在 BscScan 上核对合约地址。':'Concept preview — not a financial offer. Always verify contract addresses on BscScan before trading.',
+    '减少':'Decrease','增加':'Increase'
+  };
+  var ZH={}; Object.keys(EN).forEach(function(k){ ZH[EN[k]]=k; });
+  function swapText(map){
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var p=n.parentNode; if(!p) return NodeFilter.FILTER_REJECT;
+      var t=p.tagName; if(t==='SCRIPT'||t==='STYLE'||t==='TEXTAREA'||t==='SVG') return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    var nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function(n){
+      var core=n.nodeValue.trim(); if(!core||!map[core]) return;
+      n.nodeValue=n.nodeValue.replace(core,map[core]);
+    });
+  }
+  function setLang(l){
+    if(l===window.__lang) return;
+    swapText(l==='en'?EN:ZH);
+    window.__lang=l;
+    document.documentElement.lang=(l==='en')?'en':'zh-CN';
+    document.getElementById('langBtn').textContent=(l==='en')?'中文':'EN';
+    var ll=document.getElementById('langLink'); if(ll) ll.innerHTML='<b>'+(l==='en'?'中文 (ZH)':'English (EN)')+'</b>';
+    var wi=document.getElementById('walletIn');
+    wi.placeholder=(l==='en')?'Paste your 0x… wallet address here':'在此粘贴你的 0x… 钱包地址';
+    document.getElementById('mintStatus').textContent='';
+    document.getElementById('copyStatus').textContent='';
+    buildPrompt(); paintConnect();
+  }
+  document.getElementById('langBtn').addEventListener('click',function(){ setLang(window.__lang==='en'?'zh':'en'); });
+  document.getElementById('langLink').addEventListener('click',function(e){ e.preventDefault(); mm.classList.remove('open'); setLang(window.__lang==='en'?'zh':'en'); });
+})();
+</script>
+</body>
+</html>

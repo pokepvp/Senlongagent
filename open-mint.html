@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shenlong Agent — Buka / Tutup Mint</title>
+<style>
+:root{--bg:#070b1d;--bg2:#0b1030;--card:#101736;--line:#2a3566;--gold:#e8c15a;--gold2:#f5d97a;--jade:#4fd8a4;--ink:#eef1ff;--muted:#9aa3c7;--red:#ff6b6b;--redbg:#3a0d16}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1a2350 0%,var(--bg) 55%);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.wrap{max-width:780px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:30px;margin:6px 0 2px;color:var(--gold2);letter-spacing:1px}
+h1 .seal{color:var(--red);font-size:22px}
+.sub{color:var(--muted);margin:0 0 16px}
+h2{font-size:19px;color:var(--gold);margin:0 0 8px}
+h3{font-size:15px;color:var(--jade);margin:14px 0 6px}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.banner{border:2px solid var(--red);background:var(--redbg);border-radius:14px;padding:16px;margin:14px 0}
+.banner b{color:#ffd2d2}
+.banner .big{font-size:20px;color:#fff;letter-spacing:.5px}
+.warn{border:1px solid var(--gold);background:#2a2103;border-radius:10px;padding:12px;margin:10px 0;color:#ffe9a8}
+.note{color:var(--muted);font-size:14px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;word-break:break-all}
+button{background:linear-gradient(180deg,#f0cd6b,#c9a227);color:#1a1405;border:0;border-radius:9px;padding:11px 18px;font-size:15px;font-weight:700;cursor:pointer;margin:4px 6px 4px 0}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold)}
+button.jade{background:linear-gradient(180deg,#5fe3ae,#2ba97e);color:#04231a}
+button.red{background:linear-gradient(180deg,#ff8a8a,#d33);color:#fff}
+input,select{width:100%;background:#0a0f2a;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:14px;font-family:ui-monospace,Menlo,Consolas,monospace;margin:4px 0}
+label{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.status{font-weight:700}
+.ok{color:var(--jade)} .bad{color:var(--red)} .pend{color:var(--gold2)}
+#log{white-space:pre-wrap;background:#05081a;border:1px solid var(--line);border-radius:10px;padding:12px;min-height:120px;max-height:320px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:42%}
+.addr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;word-break:break-all}
+footer{color:var(--muted);font-size:13px;text-align:center;margin-top:24px}
+</style></head>
+<body><div class="wrap">
+<h1>神龙 SHENLONG <span class="seal">印</span></h1>
+<p class="sub">Shenlong Agent — Buka / Tutup Mint · BNB Chain · Halaman OWNER saja</p>
+
+<div class="banner">
+  <div class="big">⛔ Halaman ini MENGAKTIFKAN mint — hanya OWNER yang boleh menjalankannya.</div>
+  <p>Kontrak di-deploy dengan <span class="mono">mintOpen=false</span>. Tombol di bawah memanggil <span class="mono">setMintOpen(true)</span> — begitu dibuka, <b>siapa pun yang punya PuzzlePass valid bisa mint</b> (0,001 BNB/NFT, maks 5/wallet, Agent gratis 1x).</p>
+  <p><b>Pastikan dulu sebelum buka:</b> (1) wiring sudah lengkap — NFT.token() = $LONG dan NFT jadi minter; (2) kamu siap menerbitkan PuzzlePass lewat <a href="./signer.html" style="color:var(--gold2)">signer.html</a> — tanpa pass, tidak ada yang bisa mint; (3) kamu paham token yang ter-mint sebelum baseURI di-set akan tampil <b>kosong dulu</b> di wallet sampai metadata selesai di-hosting dan baseURI di-set (langkah 07 di deploy.html) — itu bisa diperbaiki belakangan.</p>
+</div>
+
+<div class="card"><h2>Langkah 01 — Connect wallet owner</h2>
+  <p class="note">OKX didahulukan (<span class="mono">window.okxwallet</span>), lalu wallet lain (<span class="mono">window.ethereum</span>). Harus di <b>BNB Mainnet (56)</b> dan wallet yang connect harus <b>owner kontrak</b>. Buka halaman ini di dApp browser OKX / MetaMask / Binance Wallet.</p>
+  <button id="btnConnect">1. Connect Wallet</button>
+  <span id="connStatus" class="status pend">Belum connect.</span>
+  <div class="mono" id="connAddr"></div>
+</div>
+
+<div class="card"><h2>Langkah 02 — Cek status mint</h2>
+  <p class="note">Membaca langsung dari chain. Jalankan ini dulu sebelum memutuskan buka/tutup.</p>
+  <button id="btnCheck" disabled>Cek Status</button>
+  <div id="statusOut" style="margin-top:10px"></div>
+</div>
+
+<div class="card"><h2>Langkah 03 — Buka / tutup mint</h2>
+  <div class="warn">⚠️ <b>BUKA MINT = MINT LANGSUNG JALAN.</b> Tidak ada masa tenggang. Pastikan situs sudah menunjuk ke alamat kontrak yang benar dan kamu siap menerbitkan pass.</div>
+  <button id="btnOpen" class="jade" disabled>🐉 BUKA MINT — setMintOpen(true)</button>
+  <span id="stOpen" class="status pend">—</span><br>
+  <button id="btnClose" class="red" disabled>⛔ TUTUP MINT DARURAT — setMintOpen(false)</button>
+  <span id="stClose" class="status pend">—</span>
+  <p class="note">Setiap tombol meminta konfirmasi dulu, lalu mengirim transaksi dan membaca balik <span class="mono">mintOpen</span> dari chain untuk memastikan hasilnya.</p>
+</div>
+
+<div class="card"><h2>Log</h2>
+  <div class="row"><button class="ghost" id="btnCopyLog">Salin log</button><button class="ghost" id="btnClearLog">Bersihkan log</button></div>
+  <pre id="log">Belum ada aktivitas.</pre>
+</div>
+
+<footer>Shenlong Agent · Buka/tutup mint hanya atas perintah owner · Kontrak belum diaudit</footer>
+</div>
+<script>
+"use strict";
+/* ===== Alamat kontrak (sudah ter-deploy + terverifikasi di BNB Mainnet) ===== */
+const NFT = "0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a";
+const TOKEN = "0xd3bff8e038ef3f0927e46718cd2a4d487ab6a941";
+const SEL = {
+  owner: "0x8da5cb5b", mintOpen: "0x24bbd049", totalMinted: "0xa2309ff8",
+  baseURI: "0x6c0360eb", token: "0xfc0c546a", signer: "0x238ac933",
+  setMintOpen: "0xf8004d31" /* keccak256("setMintOpen(bool)") 4 byte pertama */
+};
+const $ = (id) => document.getElementById(id);
+const logEl = $("log");
+let account = null;
+function log(msg) {
+  const t = new Date().toLocaleTimeString("id-ID", { hour12: false });
+  logEl.textContent += "[" + t + "] " + msg + "\n";
+  logEl.scrollTop = logEl.scrollHeight;
+}
+function setStatus(id, txt, cls) { const el = $(id); el.textContent = txt; el.className = "status " + (cls || "pend"); }
+function provider() { if (window.okxwallet) return window.okxwallet; if (window.ethereum) return window.ethereum; return null; }
+function decUint(h) { return BigInt("0x" + h.slice(2).padStart(64, "0").slice(-64)); }
+function decBool(h) { return h.slice(-1) === "1"; }
+function decAddr(h) { return "0x" + h.slice(-40); }
+function decString(h) {
+  const raw = h.slice(2);
+  const len = parseInt(raw.slice(64, 128), 16);
+  const data = raw.slice(128, 128 + len * 2);
+  const bytes = new Uint8Array(data.match(/.{2}/g).map((b) => parseInt(b, 16)));
+  return new TextDecoder().decode(bytes);
+}
+async function rpc(method, params) { return provider().request({ method, params: params || [] }); }
+async function ethCall(to, data) { return rpc("eth_call", [{ to, data }, "latest"]); }
+async function sendTx(tx) {
+  const hash = await rpc("eth_sendTransaction", [{ from: account, ...tx }]);
+  log("Tx terkirim: " + hash);
+  for (let i = 0; i < 100; i++) {
+    await new Promise((r) => setTimeout(r, 3000));
+    const rc = await rpc("eth_getTransactionReceipt", [hash]);
+    if (rc) {
+      if (rc.status === "0x1" || rc.status === "1") { log("Receipt OK: " + hash); return rc; }
+      throw new Error("Transaksi GAGAL (status 0). Hash: " + hash);
+    }
+  }
+  throw new Error("Receipt tidak muncul setelah ~5 menit. Hash: " + hash);
+}
+/* ===== 01 Connect ===== */
+$("btnConnect").onclick = async () => {
+  const p = provider();
+  if (!p) { log("Wallet tidak ditemukan. Buka halaman ini di dApp browser (OKX / MetaMask / Binance)."); return; }
+  try {
+    const accs = await p.request({ method: "eth_requestAccounts" });
+    account = accs[0];
+    try {
+      await p.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] });
+    } catch (e) {
+      if (e.code === 4902) {
+        await p.request({ method: "wallet_addEthereumChain", params: [{ chainId: "0x38", chainName: "BNB Smart Chain", nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 }, rpcUrls: ["https://bsc-dataseed.binance.org"], blockExplorerUrls: ["https://bscscan.com"] }] });
+      } else throw e;
+    }
+    setStatus("connStatus", "Connect: BNB Mainnet (56)", "ok");
+    $("connAddr").textContent = account;
+    log("Connect OK: " + account + " @ BNB Mainnet.");
+    ["btnCheck", "btnOpen", "btnClose"].forEach((id) => { $(id).disabled = false; });
+  } catch (e) { log("Connect gagal: " + (e.message || e)); }
+};
+/* ===== 02 Cek status ===== */
+$("btnCheck").onclick = async () => {
+  if (!account) { log("Connect dulu."); return; }
+  $("statusOut").innerHTML = "Membaca…";
+  try {
+    const rows = [];
+    const add = (k, v, cls) => rows.push("<tr><td>" + k + "</td><td class='" + (cls || "") + "'>" + v + "</td></tr>");
+    const owner = decAddr(await ethCall(NFT, SEL.owner));
+    const open = decBool(await ethCall(NFT, SEL.mintOpen));
+    const minted = decUint(await ethCall(NFT, SEL.totalMinted));
+    const uri = decString(await ethCall(NFT, SEL.baseURI));
+    const nftTok = decAddr(await ethCall(NFT, SEL.token));
+    const signer = decAddr(await ethCall(NFT, SEL.signer));
+    add("Kontrak NFT", "<span class='addr'>" + NFT + "</span>");
+    add("Owner", "<span class='addr'>" + owner + "</span>");
+    add("Wallet connect = owner?", account.toLowerCase() === owner.toLowerCase() ? "<span class='ok'>YA ✓</span>" : "<span class='bad'>BUKAN OWNER — tombol buka/tutup akan revert</span>");
+    add("mintOpen", open ? "<span class='bad'>TRUE — MINT SEDANG TERBUKA</span>" : "<span class='ok'>FALSE — MINT TERTUTUP</span>");
+    add("totalMinted", minted.toString() + " / 8.888");
+    add("NFT.token()", "<span class='addr'>" + nftTok + "</span>" + (nftTok.toLowerCase() === TOKEN.toLowerCase() ? " ✓ $LONG" : " ⚠️ BUKAN $LONG — jangan buka mint!"));
+    add("NFT.signer (PuzzlePass)", "<span class='addr'>" + signer + "</span>");
+    add("baseURI", "<span class='addr'>" + (uri || "(kosong — token akan tampil kosong sampai di-set)") + "</span>");
+    $("statusOut").innerHTML = "<table>" + rows.join("") + "</table>";
+    log("Cek status selesai. mintOpen=" + (open ? "TRUE" : "FALSE") + ", totalMinted=" + minted.toString() + ".");
+  } catch (e) { $("statusOut").innerHTML = "<span class='bad'>Gagal membaca: " + (e.message || e) + "</span>"; log("Cek status gagal: " + (e.message || e)); }
+};
+/* ===== 03 Buka / tutup ===== */
+async function setOpen(open, stId, label) {
+  if (!account) { log("Connect dulu."); return; }
+  try {
+    const owner = decAddr(await ethCall(NFT, SEL.owner));
+    if (owner.toLowerCase() !== account.toLowerCase()) { setStatus(stId, "BUKAN OWNER", "bad"); log(label + " ditolak: wallet connect bukan owner kontrak."); return; }
+    if (open) {
+      const ok = confirm("BUKA MINT sekarang?\n\nBegitu transaksi ini dikonfirmasi, siapa pun yang punya PuzzlePass valid bisa mint Shenlong (0,001 BNB/NFT). Pastikan wiring + signer sudah siap.");
+      if (!ok) { log("Buka mint dibatalkan oleh owner."); return; }
+    } else {
+      const ok = confirm("TUTUP MINT sekarang?\n\nMint langsung berhenti — transaksi mint baru akan revert. Token yang sudah ter-mint tidak terpengaruh.");
+      if (!ok) { log("Tutup mint dibatalkan oleh owner."); return; }
+    }
+    setStatus(stId, "Mengirim…", "pend");
+    const word = (open ? "1" : "0").padStart(64, "0");
+    await sendTx({ to: NFT, data: SEL.setMintOpen + word });
+    const now = decBool(await ethCall(NFT, SEL.mintOpen));
+    if (now === open) {
+      setStatus(stId, open ? "✓ MINT TERBUKA — terverifikasi on-chain" : "✓ MINT TERTUTUP — terverifikasi on-chain", "ok");
+      log(label + " OK + terverifikasi: mintOpen=" + (now ? "TRUE" : "FALSE") + ".");
+    } else {
+      setStatus(stId, "Tx OK tapi read-back TIDAK COCOK — cek manual!", "bad");
+      log(label + ": tx sukses, TAPI mintOpen terbaca " + (now ? "TRUE" : "FALSE") + ". Cek manual di BscScan.");
+    }
+  } catch (e) { setStatus(stId, "GAGAL", "bad"); log(label + " gagal: " + (e.message || e)); }
+}
+$("btnOpen").onclick = () => setOpen(true, "stOpen", "Buka mint");
+$("btnClose").onclick = () => setOpen(false, "stClose", "Tutup mint");
+/* ===== Log ===== */
+$("btnCopyLog").onclick = async () => { try { await navigator.clipboard.writeText(logEl.textContent); log("Log disalin."); } catch (e) { log("Salin log gagal."); } };
+$("btnClearLog").onclick = () => { logEl.textContent = ""; log("Log dibersihkan."); };
+log("Halaman buka/tutup mint siap. Connect dengan wallet OWNER, cek status dulu, baru tekan BUKA MINT. Halaman ini TIDAK membuka mint sendiri.");
+</script>
+</body></html>

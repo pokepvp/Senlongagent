@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shenlong Agent — PuzzlePass Signer</title>
+<style>
+:root{--bg:#070b1d;--bg2:#0b1030;--card:#101736;--line:#2a3566;--gold:#e8c15a;--gold2:#f5d97a;--jade:#4fd8a4;--ink:#eef1ff;--muted:#9aa3c7;--red:#ff6b6b;--redbg:#3a0d16}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1a2350 0%,var(--bg) 55%);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.wrap{max-width:780px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:30px;margin:6px 0 2px;color:var(--gold2);letter-spacing:1px}
+h1 .seal{color:var(--red);font-size:22px}
+.sub{color:var(--muted);margin:0 0 16px}
+h2{font-size:19px;color:var(--gold);margin:0 0 8px}
+h3{font-size:15px;color:var(--jade);margin:14px 0 6px}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.banner{border:2px solid var(--jade);background:#06231a;border-radius:14px;padding:16px;margin:14px 0}
+.banner b{color:#c9f5e2}
+.banner .big{font-size:20px;color:#fff;letter-spacing:.5px}
+.warn{border:1px solid var(--gold);background:#2a2103;border-radius:10px;padding:12px;margin:10px 0;color:#ffe9a8}
+.note{color:var(--muted);font-size:14px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;word-break:break-all}
+button{background:linear-gradient(180deg,#f0cd6b,#c9a227);color:#1a1405;border:0;border-radius:9px;padding:11px 18px;font-size:15px;font-weight:700;cursor:pointer;margin:4px 6px 4px 0}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold)}
+button.jade{background:linear-gradient(180deg,#5fe3ae,#2ba97e);color:#04231a}
+input,select,textarea{width:100%;background:#0a0f2a;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:14px;font-family:ui-monospace,Menlo,Consolas,monospace;margin:4px 0}
+label{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.status{font-weight:700}
+.ok{color:var(--jade)} .bad{color:var(--red)} .pend{color:var(--gold2)}
+#log{white-space:pre-wrap;background:#05081a;border:1px solid var(--line);border-radius:10px;padding:12px;min-height:120px;max-height:320px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:42%}
+.addr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;word-break:break-all}
+footer{color:var(--muted);font-size:13px;text-align:center;margin-top:24px}
+</style></head>
+<body><div class="wrap">
+<h1>神龙 SHENLONG <span class="seal">印</span></h1>
+<p class="sub">Shenlong Agent — PuzzlePass Signer · BNB Chain · Halaman OWNER saja</p>
+
+<div class="banner">
+  <div class="big">🔏 PuzzlePass — tiket masuk setiap mint.</div>
+  <p><b>Setiap mint</b> (berbayar <span class="mono">mintPaid</span> maupun gratis Agent <span class="mono">mintFree</span>) wajib membawa pass yang ditandatangani <b>signer kontrak</b>. Pass terikat ke <b>satu wallet</b>, berlaku <b>paling lama 15 menit</b>, dan tidak bisa dipakai ulang setelah kedaluwarsa.</p>
+  <p>Halaman ini <b>TIDAK mengirim transaksi</b> — hanya meminta tanda tangan dari wallet signer. Yang connect harus wallet signer kontrak (<span class="mono">NFT.signer()</span>), yaitu owner saat ini.</p>
+  <p class="note">Cara pakai: connect → isi wallet si pemint → pilih masa berlaku → tanda tangani → salin pass dan kirim ke pemint / agennya. Pemint memasukkan <span class="mono">expiry</span> + <span class="mono">signature</span> itu ke pemanggilan mint sebelum waktunya habis.</p>
+</div>
+
+<div class="card"><h2>Langkah 01 — Connect wallet signer</h2>
+  <p class="note">OKX didahulukan (<span class="mono">window.okxwallet</span>), lalu wallet lain (<span class="mono">window.ethereum</span>). Harus di <b>BNB Mainnet (56)</b>. Buka halaman ini di dApp browser OKX / MetaMask / Binance Wallet.</p>
+  <button id="btnConnect">1. Connect Wallet</button>
+  <span id="connStatus" class="status pend">Belum connect.</span>
+  <div class="mono" id="connAddr"></div>
+  <div style="margin-top:8px">Signer di kontrak: <span id="signerOnChain" class="status pend">— (connect dulu)</span></div>
+  <div>Wallet connect = signer? <span id="isSigner" class="status pend">—</span></div>
+  <div class="note">Keccak-256 di halaman ini (self-test saat load): <span id="keccakTest" class="status pend">…</span></div>
+</div>
+
+<div class="card"><h2>Langkah 02 — Wallet pemint + masa berlaku</h2>
+  <div><label>Wallet yang akan mint (0x…):</label><input id="inputMinter" placeholder="0x…"></div>
+  <div><label>Masa berlaku pass (kontrak menolak &gt; 15 menit):</label></div>
+  <div class="row">
+    <button class="ghost" id="btnMin5">5 menit</button>
+    <button class="ghost" id="btnMin10">10 menit</button>
+    <button class="ghost" id="btnMin15">15 menit</button>
+    <span id="durLabel" class="status ok">15 menit</span>
+  </div>
+  <p class="note">Expiry dihitung <b>saat tombol tanda tangan ditekan</b> (bukan saat halaman dibuka), jadi pass selalu segar. Satu pass hanya untuk wallet di atas — wallet lain tidak bisa memakainya.</p>
+</div>
+
+<div class="card"><h2>Langkah 03 — Tanda tangani pass</h2>
+  <p class="note">Yang ditandatangani adalah <span class="mono">keccak256(abi.encodePacked(wallet, expiry))</span> lewat <span class="mono">personal_sign</span> (EIP-191) — persis seperti yang dicek kontrak di <span class="mono">_verifyPass</span>. Wallet akan menampilkan permintaan tanda tangan; setujui untuk membuat pass.</p>
+  <button id="btnSign" class="jade" disabled>🔏 Tanda Tangani Pass</button>
+  <span id="signStatus" class="status pend">—</span>
+  <div id="passOut" style="margin-top:10px"></div>
+</div>
+
+<div class="card"><h2>Log</h2>
+  <div class="row"><button class="ghost" id="btnCopyLog">Salin log</button><button class="ghost" id="btnClearLog">Bersihkan log</button></div>
+  <pre id="log">Belum ada aktivitas.</pre>
+</div>
+
+<footer>Shenlong Agent · PuzzlePass Signer · Hanya tanda tangan, tanpa transaksi · Kontrak belum diaudit</footer>
+</div>
+<script>
+"use strict";
+/* ===== Alamat kontrak (sudah ter-deploy + terverifikasi di BNB Mainnet) ===== */
+const NFT = "0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a";
+const SEL = { signer: "0x238ac933" };
+const $ = (id) => document.getElementById(id);
+const logEl = $("log");
+let account = null, durationMin = 15, lastPass = null;
+function log(msg) {
+  const t = new Date().toLocaleTimeString("id-ID", { hour12: false });
+  logEl.textContent += "[" + t + "] " + msg + "\n";
+  logEl.scrollTop = logEl.scrollHeight;
+}
+function setStatus(id, txt, cls) { const el = $(id); el.textContent = txt; el.className = "status " + (cls || "pend"); }
+function provider() { if (window.okxwallet) return window.okxwallet; if (window.ethereum) return window.ethereum; return null; }
+function isAddr(a) { return /^0x[0-9a-fA-F]{40}$/.test(a || ""); }
+async function rpc(method, params) { return provider().request({ method, params: params || [] }); }
+async function ethCall(to, data) { return rpc("eth_call", [{ to, data }, "latest"]); }
+function decAddr(h) { return "0x" + h.slice(-40); }
+
+/* ===== Keccak-256 murni JS (BigInt) — BUKAN SHA3.
+   Diverifikasi lawan vektor uji ("" dan "abc") saat load, dan lawan
+   selector-selector kontrak yang sudah ada di deploy.html. ===== */
+const KECCAK_RC = [0x0000000000000001n,0x0000000000008082n,0x800000000000808an,0x8000000080008000n,0x000000000000808bn,0x0000000080000001n,0x8000000080008081n,0x8000000000008009n,0x000000000000008an,0x0000000000000088n,0x0000000080008009n,0x000000008000000an,0x000000008000808bn,0x800000000000008bn,0x8000000000008089n,0x8000000000008003n,0x8000000000008002n,0x8000000000000080n,0x000000000000800an,0x800000008000000an,0x8000000080008081n,0x8000000000008080n,0x0000000080000001n,0x8000000080008008n];
+const KECCAK_ROT = [[0,36,3,41,18],[1,44,10,45,2],[62,6,43,15,61],[28,55,25,21,56],[27,20,39,8,14]];
+const MASK64 = 0xFFFFFFFFFFFFFFFFn;
+function rol64(x, n) { if (n === 0) return x; const b = BigInt(n); return ((x << b) | (x >> (64n - b))) & MASK64; }
+function keccakF(st) {
+  for (let rnd = 0; rnd < 24; rnd++) {
+    const C = new Array(5), D = new Array(5);
+    for (let x = 0; x < 5; x++) C[x] = st[x] ^ st[x + 5] ^ st[x + 10] ^ st[x + 15] ^ st[x + 20];
+    for (let x = 0; x < 5; x++) D[x] = C[(x + 4) % 5] ^ rol64(C[(x + 1) % 5], 1);
+    for (let x = 0; x < 5; x++) for (let y = 0; y < 5; y++) st[x + 5 * y] ^= D[x];
+    const B = new Array(25);
+    for (let x = 0; x < 5; x++) for (let y = 0; y < 5; y++) B[y + 5 * ((2 * x + 3 * y) % 5)] = rol64(st[x + 5 * y], KECCAK_ROT[x][y]);
+    for (let x = 0; x < 5; x++) for (let y = 0; y < 5; y++) st[x + 5 * y] = (B[x + 5 * y] ^ ((~B[(x + 1) % 5 + 5 * y]) & B[(x + 2) % 5 + 5 * y])) & MASK64;
+    st[0] ^= KECCAK_RC[rnd];
+  }
+}
+function keccak256(bytes) {
+  const rate = 136, st = new Array(25).fill(0n);
+  const padded = new Uint8Array(Math.floor((bytes.length + 1 + rate - 1) / rate) * rate);
+  padded.set(bytes); padded[bytes.length] = 0x01; padded[padded.length - 1] |= 0x80;
+  const view = new DataView(padded.buffer);
+  for (let off = 0; off < padded.length; off += rate) {
+    for (let i = 0; i < rate / 8; i++) st[i] ^= view.getBigUint64(off + i * 8, true);
+    keccakF(st);
+  }
+  const out = new Uint8Array(32);
+  const oview = new DataView(out.buffer);
+  for (let i = 0; i < 4; i++) oview.setBigUint64(i * 8, st[i], true);
+  return out;
+}
+function bytesToHex(b) { return "0x" + Array.from(b).map((x) => x.toString(16).padStart(2, "0")).join(""); }
+function hexToBytes(h) { h = h.replace(/^0x/, ""); const b = new Uint8Array(h.length / 2); for (let i = 0; i < b.length; i++) b[i] = parseInt(h.substr(i * 2, 2), 16); return b; }
+function passHash(wallet, expiry) {
+  // abi.encodePacked(address, uint256): 20 byte alamat + 32 byte uint256 big-endian
+  const packed = new Uint8Array(52);
+  packed.set(hexToBytes(wallet), 0);
+  new DataView(packed.buffer, 20, 32).setBigUint64(24, BigInt(expiry));
+  return keccak256(packed);
+}
+(function keccakSelfTest() {
+  try {
+    const t1 = bytesToHex(keccak256(new Uint8Array(0))) === "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470";
+    const t2 = bytesToHex(keccak256(new TextEncoder().encode("abc"))) === "0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45";
+    const el = $("keccakTest");
+    if (t1 && t2) { el.textContent = "✓ OK (2/2 vektor uji cocok)"; el.className = "status ok"; }
+    else { el.textContent = "✗ GAGAL — jangan pakai halaman ini, hash tidak cocok!"; el.className = "status bad"; }
+  } catch (e) { const el = $("keccakTest"); el.textContent = "✗ Error: " + (e.message || e); el.className = "status bad"; }
+})();
+
+/* ===== 01 Connect ===== */
+$("btnConnect").onclick = async () => {
+  const p = provider();
+  if (!p) { log("Wallet tidak ditemukan. Buka halaman ini di dApp browser (OKX / MetaMask / Binance)."); return; }
+  try {
+    const accs = await p.request({ method: "eth_requestAccounts" });
+    account = accs[0];
+    try {
+      await p.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] });
+    } catch (e) {
+      if (e.code === 4902) {
+        await p.request({ method: "wallet_addEthereumChain", params: [{ chainId: "0x38", chainName: "BNB Smart Chain", nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 }, rpcUrls: ["https://bsc-dataseed.binance.org"], blockExplorerUrls: ["https://bscscan.com"] }] });
+      } else throw e;
+    }
+    setStatus("connStatus", "Connect: BNB Mainnet (56)", "ok");
+    $("connAddr").textContent = account;
+    log("Connect OK: " + account + " @ BNB Mainnet.");
+    const signer = decAddr(await ethCall(NFT, SEL.signer));
+    $("signerOnChain").textContent = signer;
+    if (signer.toLowerCase() === account.toLowerCase()) {
+      setStatus("isSigner", "YA ✓ — wallet ini signer, bisa menerbitkan pass", "ok");
+      $("btnSign").disabled = false;
+      log("Wallet connect = signer kontrak ✓.");
+    } else {
+      setStatus("isSigner", "BUKAN SIGNER — pass dari wallet ini akan DITOLAK kontrak", "bad");
+      $("btnSign").disabled = true;
+      log("PERINGATAN: wallet connect bukan signer (" + signer + "). Ganti wallet ke signer.");
+    }
+  } catch (e) { log("Connect gagal: " + (e.message || e)); }
+};
+/* ===== 02 Durasi ===== */
+function setDur(m) { durationMin = m; $("durLabel").textContent = m + " menit"; }
+$("btnMin5").onclick = () => setDur(5);
+$("btnMin10").onclick = () => setDur(10);
+$("btnMin15").onclick = () => setDur(15);
+/* ===== 03 Tanda tangan ===== */
+$("btnSign").onclick = async () => {
+  if (!account) { log("Connect dulu."); return; }
+  const minter = $("inputMinter").value.trim();
+  if (!isAddr(minter)) { log("Alamat wallet pemint belum valid (harus 0x… 40 karakter hex)."); return; }
+  const expiry = Math.floor(Date.now() / 1000) + durationMin * 60;
+  const hash = bytesToHex(passHash(minter.toLowerCase(), expiry));
+  setStatus("signStatus", "Meminta tanda tangan di wallet…", "pend");
+  try {
+    const sig = await provider().request({ method: "personal_sign", params: [hash, account] });
+    lastPass = { wallet: minter.toLowerCase(), expiry: expiry, signature: sig, messageHash: hash };
+    const expDate = new Date(expiry * 1000).toLocaleString("id-ID", { hour12: false });
+    setStatus("signStatus", "✓ Pass ditandatangani", "ok");
+    const json = JSON.stringify(lastPass, null, 2);
+    $("passOut").innerHTML =
+      "<table>" +
+      "<tr><td>Wallet pemint</td><td><span class='addr'>" + lastPass.wallet + "</span></td></tr>" +
+      "<tr><td>Expiry (unix)</td><td><span class='mono'>" + expiry + "</span> — " + expDate + " (berlaku " + durationMin + " menit dari sekarang)</td></tr>" +
+      "<tr><td>Message hash</td><td><span class='addr'>" + hash + "</span></td></tr>" +
+      "<tr><td>Signature</td><td><span class='addr'>" + sig + "</span></td></tr>" +
+      "</table>" +
+      "<div><label>Pass lengkap (JSON — salin &amp; kirim ke pemint):</label><textarea id='passJson' rows='7' readonly>" + json + "</textarea></div>" +
+      "<div class='row'><button class='ghost' id='btnCopyPass'>Salin JSON pass</button><button class='ghost' id='btnCopySig'>Salin signature saja</button></div>" +
+      "<div class='warn'>⏰ Pass ini <b>kedaluwarsa " + expDate + "</b>. Pemint harus memakainya sebelum itu. Setelah kedaluwarsa, buat pass baru — tidak ada pencabutan, pass lama mati sendiri.</div>";
+    $("btnCopyPass").onclick = async () => { try { await navigator.clipboard.writeText(json); log("JSON pass disalin."); } catch (e) { $("passJson").select(); document.execCommand("copy"); log("JSON pass disalin (fallback)."); } };
+    $("btnCopySig").onclick = async () => { try { await navigator.clipboard.writeText(sig); log("Signature disalin."); } catch (e) { log("Salin signature gagal."); } };
+    log("Pass ditandatangani untuk " + lastPass.wallet + ", expiry " + expiry + " (" + expDate + ").");
+    log("Message hash: " + hash);
+  } catch (e) { setStatus("signStatus", "GAGAL / ditolak", "bad"); log("Tanda tangan gagal/ditolak: " + (e.message || e)); }
+};
+/* ===== Log ===== */
+$("btnCopyLog").onclick = async () => { try { await navigator.clipboard.writeText(logEl.textContent); log("Log disalin."); } catch (e) { log("Salin log gagal."); } };
+$("btnClearLog").onclick = () => { logEl.textContent = ""; log("Log dibersihkan."); };
+log("Halaman PuzzlePass Signer siap. Connect dengan wallet SIGNER, isi wallet pemint, lalu tanda tangani. Tidak ada transaksi yang dikirim dari halaman ini.");
+</script>
+</body></html>

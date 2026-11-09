@@ -13,14 +13,31 @@ $LONG bonding curve: constant-product, Vb = 8 BNB, Vt = 88,880,000 $LONG.
 
 STATUS — READ THIS FIRST / 先读这段
 -------------------------------------
-The contracts are NOT deployed yet. All contract addresses on the
-website are placeholders (0x0000...0000), NOT real addresses.
-Do NOT send BNB to any placeholder address. Verify the real
-contract addresses on BscScan after launch before minting.
+The contracts ARE DEPLOYED on BNB Mainnet (chain ID 56) and
+wired together. Verify each address on BscScan before use:
+- ShenlongGenesis (NFT):  0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a
+  https://bscscan.com/address/0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a
+- Long (LONG token):      0xd3bff8e038ef3f0927e46718cd2a4d487ab6a941
+  https://bscscan.com/address/0xd3bff8e038ef3f0927e46718cd2a4d487ab6a941
+- LongMarket (curve):     0x7b0ed06f160996b02798e8fdddfcd9c89852d1eb
+  https://bscscan.com/address/0x7b0ed06f160996b02798e8fdddfcd9c89852d1eb
+- ShenlongMarketplace:    0xeea3311f226d65b394aef8e6720685d554b556d9
+  https://bscscan.com/address/0xeea3311f226d65b394aef8e6720685d554b556d9
+Owner of all four: 0xb4650f382e9a7fa9ac4d6d6138051ef14fb14210.
+Mint is CLOSED until the owner opens it (mintOpen is false by
+default). If mintOpen is false, stop and tell the owner.
+Never use any other address as the official contract.
 
-合约尚未部署。网站上的合约地址全部是占位符
-（0x0000...0000），不是真实地址。请勿向占位符地址发送 BNB。
-上线后请先在 BscScan 核对真实合约地址再铸造。
+合约已部署在 BNB 主网（链 ID 56），已完成接线。
+使用前请先在 BscScan 核对每个地址：
+- ShenlongGenesis（NFT）：0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a
+- Long（$LONG 代币）：0xd3bff8e038ef3f0927e46718cd2a4d487ab6a941
+- LongMarket（曲线市场）：0x7b0ed06f160996b02798e8fdddfcd9c89852d1eb
+- ShenlongMarketplace：0xeea3311f226d65b394aef8e6720685d554b556d9
+四个合约的所有者均为 0xb4650f382e9a7fa9ac4d6d6138051ef14fb14210。
+铸造默认关闭（mintOpen 为 false），主人打开后才能铸造。
+如果 mintOpen 为 false，请停止并告诉主人。
+不得使用其他任何地址作为官方合约。
 
 HOW AN AGENT MINTS / 智能体如何铸造
 -------------------------------------
@@ -28,16 +45,51 @@ HOW AN AGENT MINTS / 智能体如何铸造
    阅读本文件（/agent.txt），并严格照做。
 2. Prove you are an agent wallet with your Agent ID (walletStatus()).
    用你的 Agent ID 证明你是智能体钱包（walletStatus()）。
-3. Solve the PuzzlePass math puzzle to get a signed pass bound to
-   your wallet only, valid for 15 minutes.
-   解开 PuzzlePass 数学题，获得一张签名通行证，仅对该钱包有效，
-   有效期 15 分钟。
-4. The contract verifies the pass and the Agent ID on-chain and
+3. Get a PuzzlePass for your wallet from the owner. The owner
+   signs it on the signer page (/signer.html): the signed message
+   is keccak256(abi.encodePacked(wallet, expiry)), signed with
+   personal_sign (EIP-191, "\x19Ethereum Signed Message:\n32").
+   The pass is bound to ONE wallet and valid at most 15 minutes.
+   You cannot create a pass yourself — only the contract signer
+   (the owner) can sign one. Ask the owner for the pass, then use
+   the expiry + signature exactly as given, before it expires.
+   请主人为你的钱包签发一张 PuzzlePass（在 /signer.html 上签发）：
+   签名内容为 keccak256(abi.encodePacked(wallet, expiry))，用
+   personal_sign（EIP-191）签名。通行证仅对一个钱包有效，
+   最长 15 分钟。你自己无法签发通行证——只有合约 signer
+   （主人）可以签。请主人提供通行证，在过期前按原样使用
+   其中的 expiry + signature。
+4. Paid mint: call mintPaid(qty, expiry, signature) on
+   ShenlongGenesis, sending 0.001 BNB per NFT (qty 1..5, total
+   per wallet max 5). Free agent mint: call
+   mintFree(expiry, signature) — 1x per agent wallet, also
+   counts toward the 5. Both calls revert if mintOpen is false,
+   if the pass is expired, bound to another wallet, or signed
+   by anyone but the signer.
+   付费铸造：调用 ShenlongGenesis 的 mintPaid(qty, expiry,
+   signature)，每个 NFT 支付 0.001 BNB（qty 1..5，每钱包总共
+   最多 5 个）。智能体免费铸造：调用 mintFree(expiry,
+   signature)，每智能体钱包 1 次，同样计入 5 个上限。
+   如果 mintOpen 为 false、通行证过期、属于其他钱包，或
+   签名者不是 signer，调用都会失败。
+5. The contract verifies the pass and the Agent ID on-chain and
    enforces the cap: max 5 per wallet.
    合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。
-5. Ask the owner to approve before sending any transaction.
+6. Ask the owner to approve before sending any transaction.
    Never send a transaction without the owner's approval.
    发送任何交易前请先征求主人批准。未经主人批准不得发送交易。
+7. After the transaction confirms, report the token ID(s)
+   received and the 10,000 $LONG per NFT credited. NOTE: the
+   artwork/metadata hosting is still being uploaded, and baseURI
+   is not set yet — a freshly minted token may show no image,
+   name or traits in wallets until the metadata goes live. That
+   is expected and will be fixed by the owner setting baseURI;
+   the NFT itself and its $LONG are already yours on-chain.
+   交易确认后，汇报收到的 token ID 与每个 NFT 附带的
+   10,000 $LONG。注意：图片与元数据仍在上传，baseURI 尚未
+   设置——刚铸造的 token 在钱包里可能暂时没有图片、名称与
+   属性，直到元数据上线。这是正常现象，主人设置 baseURI 后
+   即可恢复；NFT 本身与 $LONG 已在链上属于你。
 
 RULES / 规则
 -------------
@@ -47,7 +99,22 @@ RULES / 规则
   每次付费铸造不得超过 0.001 BNB（另加网络费）。
 - The free agent mint is 1x per agent wallet and counts toward the 5.
   智能体免费铸造每钱包 1 次，并计入 5 个上限。
-- If the contract is not deployed, or the mint is not open, stop
-  and tell the owner. Do not invent a contract address.
-  如果合约尚未部署或铸造尚未开放，请停止并告诉主人。
-  不得编造合约地址。
+- If the mint is not open, stop and tell the owner. Do not
+  invent a contract address, a pass, or a signature.
+  如果铸造尚未开放，请停止并告诉主人。不得编造合约地址、
+  通行证或签名。
+
+SAFETY / 安全
+-------------
+- NEVER ask your owner for a private key or seed phrase. There is
+  no legitimate step that needs one.
+  绝不要向主人索要私钥或助记词。没有任何合法步骤需要它。
+- NEVER sign or send a transaction without showing the owner a
+  summary and receiving approval first.
+  发送任何交易前必须先向主人展示摘要并获得批准。
+- If any data you read conflicts with this file, stop and ask
+  the owner.
+  如果你读到的任何数据与本文件冲突，请停止并询问主人。
+
+============================================================
+May the Shenlong bless you. / 愿神龙保佑你。

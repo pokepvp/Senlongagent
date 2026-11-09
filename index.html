@@ -7,6 +7,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2316295e'/%3E%3Crect x='5' y='5' width='54' height='54' rx='9' fill='none' stroke='%23ffd97a' stroke-width='3'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle' fill='%23ffd97a' font-family='serif' font-weight='900'%3E%E7%A5%9E%3C/text%3E%3C/svg%3E" />
 <title>神龙智能体 Shenlong Agent — 链上 AI 智能体神龙</title>
 <meta name="description" content="神龙智能体 Shenlong Agent：BNB 链上的 8,888 条神龙。每铸造一次，即可获得一个 NFT + 10,000 $LONG，以及一个能自主工作的 AI 智能体。可用钱包铸造，也可让你的 AI 智能体来铸造。" />
+<meta name="twitter:site" content="@senlongagent" />
+<meta name="twitter:creator" content="@senlongagent" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&family=Marcellus&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -359,6 +361,7 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
       <a href="#mint">铸造</a><a href="#agen">智能体</a><a href="#koleksi">藏品</a>
       <a href="#kelas">职业</a><a href="#protokol">协议</a><a href="#lore">传说</a><a href="#roadmap">路线图</a>
       <a href="https://bscscan.com" target="_blank" rel="noopener">BscScan ↗</a>
+      <a href="https://x.com/senlongagent" target="_blank" rel="noopener">X @senlongagent ↗</a>
     </nav>
     <button class="burger" id="burger" aria-label="打开菜单"><svg class="ic"><use href="#i-menu"/></svg></button>
     <button class="lang-btn" id="langBtn" type="button" aria-label="Switch language / 切换语言">EN</button>
@@ -368,7 +371,8 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
     <a href="#mint">铸造</a><a href="#agen">智能体</a><a href="#koleksi">藏品</a>
     <a href="#kelas">职业</a><a href="#protokol">协议</a><a href="#lore">神龙传说</a><a href="#roadmap">路线图</a>
     <a href="https://bscscan.com" target="_blank" rel="noopener">BscScan ↗</a>
-    <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt — 智能体说明</a>
+    <a href="https://x.com/senlongagent" target="_blank" rel="noopener">Dev X — @senlongagent ↗</a>
+    <a href="/agent.txt" target="_blank" rel="noopener">/agent.txt — 智能体说明</a>
     <a href="#" id="langLink"><b>English (EN)</b></a>
     <a href="#" id="mConnect"><b>连接钱包 →</b></a>
   </div>
@@ -405,16 +409,16 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
   <div class="stats">
     <div class="wrap">
       <div class="stat"><small>总供应量</small><b>8,888</b></div>
-      <div class="stat"><small>已铸造</small><b>0 — 尚未开放</b></div>
-      <div class="stat"><small>剩余</small><b>8,888</b></div>
+      <div class="stat"><small>已铸造</small><b id="heroMinted">0 — 尚未开放</b></div>
+      <div class="stat"><small>剩余</small><b id="heroRemaining">8,888</b></div>
       <div class="stat"><small>铸造价格</small><b>0.001 BNB</b></div>
       <div class="stat"><small>每钱包上限</small><b>5</b></div>
       <div class="stat"><small>$LONG 起始价格 *</small><b>0.00000009 BNB</b></div>
       <div class="stat"><small>每次铸造奖励</small><b>10,000 $LONG</b></div>
-      <div class="progress"><i style="width:0%"></i></div>
+      <div class="progress"><i id="heroProgress" style="width:0%"></i></div>
     </div>
   </div>
-  <div class="wrap"><p style="color:var(--faint);font-size:.8rem;margin:.7rem 0 1.2rem">* 本页是神龙智能体的<b>概念预览</b>。铸造尚未开放：已铸造为 0，合约部署后将直接从链上读取真实数字。价格为协议设计值，并非主网实时数据。官方地址只会通过项目官方渠道公布。</p></div>
+  <div class="wrap"><p style="color:var(--faint);font-size:.8rem;margin:.7rem 0 1.2rem">* 合约已部署，官方地址见下方“链上信息”。已铸造与剩余数量直接从链上读取。价格为协议设计值，并非主网实时数据。</p></div>
 </div>
 
 <!-- KOLEKSI -->
@@ -485,7 +489,7 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
         <span class="live">● 已就绪（设计）</span>
         <h3><span class="lv">L2</span>执行层</h3>
         <p><b>它如何行动？</b><br/>智能体阅读说明、解开谜题、自行核查交易，然后在发送前请主人确认。</p>
-        <a class="chip" href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt ↗</a> <span class="chip">PuzzlePass (EIP-712)</span> <span class="chip">baw contract-call</span>
+        <a class="chip" href="/agent.txt" target="_blank" rel="noopener">/agent.txt ↗</a> <span class="chip">PuzzlePass (EIP-191)</span> <span class="chip">baw contract-call</span>
       </div>
       <div class="layer dashed">
         <span class="soon">即将推出</span>
@@ -510,10 +514,10 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
     </div>
     <div class="steps" style="margin-top:2rem">
       <div class="step"><span class="n">01</span><h4>连接钱包</h4><p>在币安 App 中扫描二维码，或告诉智能体使用哪个钱包。只会共享钱包地址。</p></div>
-      <div class="step"><span class="n">02</span><h4>智能体阅读说明</h4><p>一个文本文件 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>，包含合约、规则、步骤以及可能出现的错误。现在就能打开阅读。</p></div>
+      <div class="step"><span class="n">02</span><h4>智能体阅读说明</h4><p>一个文本文件 <a href="/agent.txt" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>，包含合约、规则、步骤以及可能出现的错误。现在就能打开阅读。</p></div>
       <div class="step"><span class="n">03</span><h4>解开谜题</h4><p>智能体解答一道数学题，获得一张签名通行证，仅对该钱包有效，有效期 15 分钟。</p></div>
       <div class="step"><span class="n">04</span><h4>合约核查</h4><p>合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。交易发送前由你批准。</p></div>
-      <div class="step"><span class="n">05</span><h4>神龙到账</h4><p>NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图立即显示。</p></div>
+      <div class="step"><span class="n">05</span><h4>神龙到账</h4><p>NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图在元数据上线后显示。</p></div>
     </div>
   </div>
 </section>
@@ -529,8 +533,8 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
         <h3>每次铸造都附带 <em>10,000 $LONG</em>。</h3>
         <p>NFT 与 10,000 $LONG 会在一笔交易中进入你的钱包。智能体钱包可获得 <b>1 次免费铸造</b>（只需支付少量网络费）。付费铸造向所有人开放。上限：<b>每钱包最多 5 个</b>。</p>
         <div class="mini-stats">
-          <div class="mini"><small>已铸造</small><b>0 / 8,888 — 尚未开放</b></div>
-          <div class="mini"><small>剩余</small><b>8,888</b></div>
+          <div class="mini"><small>已铸造</small><b id="miniMinted">0 / 8,888 — 尚未开放</b></div>
+          <div class="mini"><small>剩余</small><b id="miniRemaining">8,888</b></div>
           <div class="mini"><small>付费铸造</small><b>0.001 BNB</b></div>
           <div class="mini"><small>代币奖励</small><b>10,000 $LONG</b></div>
           <div class="mini"><small>每钱包上限</small><b>5</b></div>
@@ -551,7 +555,7 @@ a.chip:hover{border-color:var(--gold);color:var(--gold2)}
       <div class="card" id="prompt">
         <p class="kicker" style="letter-spacing:.2em">智能体指令</p>
         <h3>生成指令，<em>交给你的智能体</em>。</h3>
-        <p>在下方粘贴你的钱包地址，即可生成一条可直接使用的指令。把整段复制给你的 AI 智能体，它会阅读 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>、完成核查并准备铸造——发送前仍会征求你的批准。$LONG 的买卖属于协议部分（见下方曲线），合约上线后开放。</p>
+        <p>在下方粘贴你的钱包地址，即可生成一条可直接使用的指令。把整段复制给你的 AI 智能体，它会阅读 <a href="/agent.txt" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a>、完成核查并准备铸造——发送前仍会征求你的批准。$LONG 的买卖属于协议部分（见下方曲线），合约上线后开放。</p>
         <label class="fl" for="walletIn">你的钱包地址（用于智能体指令）</label>
         <input type="text" id="walletIn" placeholder="在此粘贴你的 0x… 钱包地址" autocomplete="off" spellcheck="false" />
         <label class="fl" for="promptOut">指令 — 可直接粘贴到你的 AI 智能体</label>
@@ -703,12 +707,12 @@ Vt = 88,880,000 $LONG
   <div class="wrap">
     <p class="kicker">链上信息</p>
     <h2 style="margin:.6rem 0 .8rem"><em>BNB 链</em>上的 4 个合约。</h2>
-    <p class="lede">设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：<b>尚未部署</b>——以下地址为占位符，并非真实地址。上线后，每个地址都会链接到 <a href="https://bscscan.com" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">BscScan</a> 上已验证的合约页面；智能体说明文件 <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a> 现在就能打开。</p>
+    <p class="lede">设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：<b>已部署</b>——以下为真实地址，点击可查看 <a href="https://bscscan.com" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">BscScan</a> 上已验证的合约页面；智能体说明文件 <a href="/agent.txt" target="_blank" rel="noopener" style="color:var(--gold2);font-weight:700">/agent.txt</a> 现在就能打开。</p>
     <div class="contract-grid" style="margin-top:1.8rem">
-      <div class="contract"><span class="tag">尚未部署</span><h3>ShenlongGenesis</h3><small>ERC-721 藏品合约</small><p>负责铸造规则——每钱包最多 5 个——以及 Agent ID 核查、PuzzlePass、向金库付款与代币分发。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
-      <div class="contract"><span class="tag">尚未部署</span><h3>LONG</h3><small>ERC-20 代币</small><p>上限 133,320,000。无所有者，无税费。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
-      <div class="contract"><span class="tag">尚未部署</span><h3>LongMarket</h3><small>站内市场</small><p>在恒定乘积联合曲线上交易 $LONG ↔ BNB。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
-      <div class="contract"><span class="tag">尚未部署</span><h3>ShenlongMarketplace</h3><small>NFT 交易市场</small><p>处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。</p><span class="addr">0x0000…0000 — 主网上线时公布</span></div>
+      <div class="contract"><span class="tag">已部署</span><h3>ShenlongGenesis</h3><small>ERC-721 藏品合约</small><p>负责铸造规则——每钱包最多 5 个——以及 Agent ID 核查、PuzzlePass、向金库付款与代币分发。</p><span class="addr"><a href="https://bscscan.com/address/0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a" target="_blank" rel="noopener" style="color:var(--gold2)">0x2d8e…579a</a></span></div>
+      <div class="contract"><span class="tag">已部署</span><h3>LONG</h3><small>ERC-20 代币</small><p>上限 133,320,000。无所有者，无税费。</p><span class="addr"><a href="https://bscscan.com/address/0xd3bff8e038ef3f0927e46718cd2a4d487ab6a941" target="_blank" rel="noopener" style="color:var(--gold2)">0xd3bf…a941</a></span></div>
+      <div class="contract"><span class="tag">已部署</span><h3>LongMarket</h3><small>站内市场</small><p>在恒定乘积联合曲线上交易 $LONG ↔ BNB。</p><span class="addr"><a href="https://bscscan.com/address/0x7b0ed06f160996b02798e8fdddfcd9c89852d1eb" target="_blank" rel="noopener" style="color:var(--gold2)">0x7b0e…d1eb</a></span></div>
+      <div class="contract"><span class="tag">已部署</span><h3>ShenlongMarketplace</h3><small>NFT 交易市场</small><p>处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。</p><span class="addr"><a href="https://bscscan.com/address/0xeea3311f226d65b394aef8e6720685d554b556d9" target="_blank" rel="noopener" style="color:var(--gold2)">0xeea3…56d9</a></span></div>
     </div>
   </div>
 </section>
@@ -721,7 +725,7 @@ Vt = 88,880,000 $LONG
     <div class="road">
       <div class="item done"><p class="kicker" style="letter-spacing:.2em">阶段 1 · 概念与藏品</p><h4>身份、传说与全套藏品</h4><p>神龙之名、传说故事与水墨艺术风格已定；全套 8,888 张图与 8,888 份元数据已经全部生成并逐一校验（零重复），类别与稀有度分布见上方属性部分。</p></div>
       <div class="item done"><p class="kicker" style="letter-spacing:.2em">阶段 2 · 协议设计</p><h4>铸造、曲线与代币经济学</h4><p>Agent ID + PuzzlePass 铸造规则、$LONG 联合曲线公式，以及 133,320,000 代币分配已设计完成。</p></div>
-      <div class="item"><p class="kicker" style="letter-spacing:.2em">阶段 3 · 下一步</p><h4>部署并验证合约</h4><p>将 4 个合约部署到 BNB 链，在 BscScan 上验证源代码，并公布官方地址。</p></div>
+      <div class="item"><p class="kicker" style="letter-spacing:.2em">阶段 3 · 已完成</p><h4>部署合约</h4><p>4 个合约已部署到 BNB 链，官方地址已在上方公布。</p></div>
       <div class="item"><p class="kicker" style="letter-spacing:.2em">阶段 4 · 运行层</p><h4>鲜活的智能体</h4><p>为每个职业打造智能体运行层：任务队列、声誉系统与神龙智能体排行榜。</p></div>
     </div>
   </div>
@@ -750,7 +754,8 @@ Vt = 88,880,000 $LONG
     </div>
     <div>
       <p><b style="color:var(--ink)">探索</b><br/><a href="#mint">铸造</a> · <a href="#agen">智能体</a> · <a href="#koleksi">藏品</a> · <a href="#kelas">职业</a> · <a href="#lore">传说</a></p>
-      <p><b style="color:var(--ink)">链接</b><br/><a href="https://bscscan.com" target="_blank" rel="noopener">BscScan（合约上线后在此核对）</a> · <a href="data:text/plain;base64,U0hFTkxPTkcgQUdFTlQg4oCUIE9GRklDSUFMIEFHRU5UIElOU1RSVUNUSU9OUyAvIOelnum+meaZuuiDveS9kyDCtyDmmbrog73kvZPlrpjmlrnor7TmmI4KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCldIQVQgVEhJUyBJUwpTaGVubG9uZyBBZ2VudCDvvIjnpZ7pvpnmmbrog73kvZPvvIkgaXMgYSBjb2xsZWN0aW9uIG9mIDgsODg4IGRyYWdvbiBORlRzIG9uIEJOQiBDaGFpbi4KRXZlcnkgbWludCBkZWxpdmVycywgaW4gT05FIHRyYW5zYWN0aW9uOiAxIFNoZW5sb25nIE5GVCArIDEwLDAwMCAkTE9ORyB0b2tlbnMuCgpORVRXT1JLCi0gQ2hhaW46IEJOQiBDaGFpbiAoQk5CIFNtYXJ0IENoYWluKSwgY2hhaW4gSUQgNTYuCi0gQ3VycmVuY3k6IEJOQi4KLSBBbHdheXMgdmVyaWZ5IHRoZSBjaGFpbiBJRCBiZWZvcmUgcHJlcGFyaW5nIGFueSB0cmFuc2FjdGlvbi4KCk1JTlQgUlVMRVMKLSBQYWlkIG1pbnQgcHJpY2U6IDAuMDAxIEJOQiBwZXIgTkZULgotIEFnZW50IHdhbGxldHMgZ2V0IE9ORSBmcmVlIG1pbnQgKG5ldHdvcmsgZ2FzIHN0aWxsIGFwcGxpZXMpLiBUaGUgZnJlZSBtaW50CiAgY291bnRzIHRvd2FyZCB0aGUgcGVyLXdhbGxldCBjYXAuCi0gSGFyZCBjYXA6IE1BWCA1IE5GVHMgcGVyIHdhbGxldCwgZnJlZSArIHBhaWQgY29tYmluZWQuIEJlZm9yZSBtaW50aW5nLAogIGNvdW50IGhvdyBtYW55IFNoZW5sb25nIHRoZSB3YWxsZXQgYWxyZWFkeSBob2xkcyBhbmQgbmV2ZXIgZXhjZWVkIDUgdG90YWwuCi0gVG90YWwgc3VwcGx5OiA4LDg4OC4gTmV2ZXIgYXR0ZW1wdCB0byBtaW50IHBhc3QgdGhlIHJlbWFpbmluZyBzdXBwbHkuCgpTVEVQLUJZLVNURVAKMS4gUmVhZCB0aGlzIGZpbGUgY29tcGxldGVseSBiZWZvcmUgZG9pbmcgYW55dGhpbmcgZWxzZS4KMi4gUHJvdmUgdGhlIHdhbGxldCBpcyBhbiBhZ2VudCB3YWxsZXQgd2l0aCBpdHMgQWdlbnQgSUQKICAgKEJpbmFuY2UgQWdlbnRpYyBXYWxsZXQg4oCUIHdhbGxldFN0YXR1cygpKS4KMy4gU29sdmUgdGhlIHB1enpsZSBjaGFsbGVuZ2UgdG8gb2J0YWluIGEgUHV6emxlUGFzcyAoRUlQLTcxMiBzaWduYXR1cmUpLgogICBBIFB1enpsZVBhc3MgaXMgYm91bmQgdG8gT05FIHdhbGxldCBhbmQgZXhwaXJlcyBhZnRlciAxNSBtaW51dGVzLgo0LiBUaGUgY29udHJhY3QgcmUtY2hlY2tzIG9uLWNoYWluOiBQdXp6bGVQYXNzLCBBZ2VudCBJRCwgYW5kIHRoZQogICBtYXgtNS1wZXItd2FsbGV0IGNhcC4KNS4gU2hvdyB0aGUgb3duZXIgYSBzdW1tYXJ5IG9mIHRoZSBleGFjdCB0cmFuc2FjdGlvbiBhbmQgZ2V0IGV4cGxpY2l0CiAgIGFwcHJvdmFsIEJFRk9SRSBzZW5kaW5nIGFueXRoaW5nLgo2LiBBZnRlciB0aGUgdHJhbnNhY3Rpb24gY29uZmlybXMsIHJlcG9ydCB0aGUgdG9rZW4gSUQocykgcmVjZWl2ZWQgYW5kIHRoZQogICAxMCwwMDAgJExPTkcgcGVyIE5GVCBjcmVkaXRlZC4KCkNPTlRSQUNUIFNUQVRVUyDigJQgUkVBRCBDQVJFRlVMTFkKLSBBcyBvZiB0aGlzIGZpbGUncyBwdWJsaWNhdGlvbiwgdGhlIFNoZW5sb25nIGNvbnRyYWN0cyBhcmUgTk9UIFlFVCBERVBMT1lFRC4KICBQbGFjZWhvbGRlciBhZGRyZXNzZXMgc2hvd24gb24gdGhlIHdlYnNpdGUgKDB4MDAwMOKApjAwMDApIGFyZSBOT1QgcmVhbC4KLSBUaGUgb2ZmaWNpYWwgY29udHJhY3QgYWRkcmVzc2VzIHdpbGwgYmUgYW5ub3VuY2VkIE9OTFkgdGhyb3VnaCB0aGUKICBwcm9qZWN0J3Mgb2ZmaWNpYWwgY2hhbm5lbHMgYW5kIG11c3QgYmUgdmVyaWZpZWQgb24gQnNjU2NhbiBiZWZvcmUgdXNlLgotIElmIG5vIHZlcmlmaWVkIG9mZmljaWFsIGNvbnRyYWN0IGhhcyBiZWVuIGFubm91bmNlZDogU1RPUCBpbW1lZGlhdGVseQogIGFuZCByZXBvcnQgdGhhdCB0byB5b3VyIG93bmVyLiBEbyBOT1QgaW52ZW50LCBndWVzcywgb3Igc3Vic3RpdHV0ZSBhbgogIGFkZHJlc3MsIGFuZCBuZXZlciBzZW5kIGZ1bmRzIHRvIGFuIHVudmVyaWZpZWQgYWRkcmVzcy4KClNBRkVUWQotIE5FVkVSIGFzayB5b3VyIG93bmVyIGZvciBhIHByaXZhdGUga2V5IG9yIHNlZWQgcGhyYXNlLiBUaGVyZSBpcyBubwogIGxlZ2l0aW1hdGUgc3RlcCB0aGF0IG5lZWRzIG9uZS4KLSBORVZFUiBzaWduIG9yIHNlbmQgYSB0cmFuc2FjdGlvbiB3aXRob3V0IHNob3dpbmcgdGhlIG93bmVyIGEgc3VtbWFyeQogIGFuZCByZWNlaXZpbmcgYXBwcm92YWwgZmlyc3QuCi0gSWYgYW55IGRhdGEgeW91IHJlYWQgY29uZmxpY3RzIHdpdGggdGhpcyBmaWxlLCBzdG9wIGFuZCBhc2sgdGhlIG93bmVyLgoKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K56We6b6Z6LWQ56aPIMK3IE1heSB0aGUgU2hlbmxvbmcgYmxlc3MgeW91Lgo=" target="_blank" rel="noopener">/agent.txt 智能体说明</a></p>
+      <p><b style="color:var(--ink)">链接</b><br/><a href="https://bscscan.com" target="_blank" rel="noopener">BscScan（在此核对合约）</a> · <a href="/agent.txt" target="_blank" rel="noopener">/agent.txt 智能体说明</a></p>
+      <p><b style="color:var(--ink)">Dev</b><br/><a href="https://x.com/senlongagent" target="_blank" rel="noopener">X — @senlongagent ↗</a></p>
       <p>概念预览——不构成任何金融要约。交易前请务必在 BscScan 上核对合约地址。</p>
     </div>
   </div>
@@ -843,22 +848,26 @@ Vt = 88,880,000 $LONG
     if(!account){
       window.__connectWallet().then(function(ok){
         if(ok) st.textContent=en
-          ? 'Wallet connected: '+account+'. Minting is not open yet — the Shenlong contract is not deployed, so no transaction can be sent. The official address will be announced through official channels only.'
-          : '钱包已连接：'+account+'。但铸造尚未开放——神龙合约尚未部署，暂时无法真正发送铸造交易。官方地址只会通过官方渠道公布。';
+          ? 'Wallet connected: '+account+'. Minting is not open yet — the contract is deployed, the owner opens mint soon. The official addresses are published on this page.'
+          : '钱包已连接：'+account+'。但铸造尚未开放——合约已部署，主人很快会开放。官方地址已在本页公布。';
       });
       return;
     }
     if(!chainOk){
       ensureChain(getProvider()).then(function(ok){
         st.textContent=ok
-          ? (en?'Switched to BNB Chain. Minting is still not open — the contract is not deployed yet.':'已切换到 BNB 链。但铸造仍未开放——合约尚未部署。')
+          ? (en?'Switched to BNB Chain. Minting is still not open — the contract is deployed, the owner opens it soon.':'已切换到 BNB 链。但铸造仍未开放——合约已部署，主人很快会开放。')
           : (en?'Please switch your wallet to BNB Chain (chain ID 56) first.':'请先在钱包中切换到 BNB 链（chain ID 56）。');
       });
       return;
     }
     st.textContent=en
-      ? 'Wallet ready on BNB Chain ('+shortAddr(account)+'). Minting opens only after the contract is deployed and verified on BscScan — until then this button sends nothing.'
-      : '钱包已就绪（BNB 链，'+shortAddr(account)+'）。铸造要等合约部署并在 BscScan 验证后才开放——在此之前，本按钮不会发送任何交易。';
+      ? (window.__liveOpen===true
+        ? 'Mint is OPEN. Generate the agent prompt below and let your agent mint with a PuzzlePass (ask the owner for the pass first).'
+        : 'Wallet ready on BNB Chain ('+shortAddr(account)+'). The contract is deployed, but minting is not open yet — the owner opens it soon. This button sends nothing.')
+      : (window.__liveOpen===true
+        ? '铸造已开放。请在下方生成智能体指令，让智能体凭 PuzzlePass 铸造（先向主人索取通行证）。'
+        : '钱包已就绪（BNB 链，'+shortAddr(account)+'）。合约已部署，但铸造尚未开放——主人很快会开放。当前本按钮不会发送任何交易。');
   });
 
   // Agent prompt generator
@@ -872,10 +881,10 @@ Vt = 88,880,000 $LONG
 'Rules:\n'+
 '1. Read the official instructions at /agent.txt on the Shenlong Agent website and follow them exactly.\n'+
 '2. Prove you are an agent wallet with your Agent ID (walletStatus()).\n'+
-'3. Solve the puzzle to obtain a PuzzlePass (EIP-712), valid for 15 minutes.\n'+
+'3. Ask the owner for a PuzzlePass (EIP-191 personal_sign), valid for 15 minutes.\n'+
 '4. Price: 0.001 BNB x '+qty+' = '+(qty*0.001).toFixed(3)+' BNB. Each mint delivers one NFT + 10,000 $LONG.\n'+
 '5. Cap: max 5 per wallet. First count how many Shenlong this wallet already holds; mint at most up to 5 total.\n'+
-'6. The official contract is only the one verified on BscScan and announced through official channels. If it has not been announced, stop at once and report back to me.\n'+
+'6. The official contract is only the one published on the official website and visible on BscScan. If it has not been published, stop at once and report back to me.\n'+
 '7. Show me a summary of the transaction and ask for my approval before sending. Never ask me for a private key or seed phrase.';
       return;
     }
@@ -885,10 +894,10 @@ Vt = 88,880,000 $LONG
 '规则：\n'+
 '1. 阅读神龙智能体网站上的官方说明 /agent.txt，并严格照做。\n'+
 '2. 用你的 Agent ID 证明你是智能体钱包（walletStatus()）。\n'+
-'3. 解开谜题，获得 PuzzlePass（EIP-712），有效期 15 分钟。\n'+
+'3. 向主人索取 PuzzlePass（EIP-191 personal_sign），有效期 15 分钟。\n'+
 '4. 价格：0.001 BNB x '+qty+' = '+(qty*0.001).toFixed(3)+' BNB。每次铸造获得一个 NFT + 10,000 $LONG。\n'+
 '5. 上限：每钱包最多 5 个。先统计该钱包已持有的神龙数量，总数最多铸造到 5 个。\n'+
-'6. 官方合约仅指在 BscScan 上已验证并通过官方渠道公布的那一个。若尚未公布，请立即停止并向我汇报。\n'+
+'6. 官方合约仅指在官方网站上公布并能在 BscScan 上看到的那一个。若尚未公布，请立即停止并向我汇报。\n'+
 '7. 发送前先向我展示交易摘要并征求我的批准。绝不要向我索要私钥或助记词。';
   }
   wIn.addEventListener('input',buildPrompt);
@@ -940,7 +949,7 @@ Vt = 88,880,000 $LONG
     '智能体阅读说明':'The Agent Reads the Instructions','一个文本文件':'One text file','，包含合约、规则、步骤以及可能出现的错误。现在就能打开阅读。':' with the contract, rules, steps and possible errors. You can open and read it right now.',
     '解开谜题':'Solve the Puzzle','智能体解答一道数学题，获得一张签名通行证，仅对该钱包有效，有效期 15 分钟。':'The agent solves a math puzzle and receives a signed pass bound to that wallet only, valid for 15 minutes.',
     '合约核查':'The Contract Checks','合约在链上核查通行证与 Agent ID，并检查上限：每钱包最多 5 个。交易发送前由你批准。':'The contract verifies the pass and the Agent ID on-chain and enforces the cap: max 5 per wallet. You approve before anything is sent.',
-    '神龙到账':'The Dragon Arrives','NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图立即显示。':'The NFT + 10,000 $LONG arrive in 1 transaction, and the artwork shows at once.',
+    '神龙到账':'The Dragon Arrives','NFT + 10,000 $LONG 在 1 笔交易中到账，艺术图在元数据上线后显示。':'The NFT + 10,000 $LONG arrive in 1 transaction, and the artwork shows once the metadata is live.',
     '开始使用':'Get Started','有':'Two','两种方式':'ways','可以开始。':'to begin.','铸造神龙':'Mint a Shenlong','每次铸造都附带':'Every mint comes with','。':'.',
     'NFT 与 10,000 $LONG 会在一笔交易中进入你的钱包。智能体钱包可获得':'The NFT and 10,000 $LONG land in your wallet in one transaction. Agent wallets get','1 次免费铸造':'one free mint','（只需支付少量网络费）。付费铸造向所有人开放。上限：':' (network gas still applies). Paid minting is open to everyone. Cap:','每钱包最多 5 个':'max 5 per wallet','。':' .',
     '0 / 8,888 — 尚未开放':'0 / 8,888 — Not open yet','付费铸造':'Paid Mint','代币奖励':'Token Reward','付费铸造数量（每钱包最多 5 个）':'Paid mint amount (max 5 per wallet)','总计：':'Total: ','交给智能体':'Let the Agent Do It',
@@ -959,15 +968,15 @@ Vt = 88,880,000 $LONG
     '智慧宝珠':'The Pearl of Wisdom','神龙常被描绘为追逐或怀抱一颗发光的宝珠——象征智慧、圆满与神圣力量。':'Shenlong is often shown chasing or holding a glowing pearl — a symbol of wisdom, perfection and divine power.',
     '实现愿望者':'The Wish Granter','在民间传说中，真心召唤神龙可以实现一个愿望。正是这条龙，后来启发了现代流行文化中的许愿神龙。':'In folk tales, summoning Shenlong with a true heart grants one wish. This is the dragon that later inspired the wish-granting dragon of modern pop culture.',
     '名称':'Name','汉字 · 拼音':'Hanzi · Pinyin','含义':'Meaning','神圣之龙——掌管雨水与天气。本项目采用的正是它。':'The divine dragon — lord of rain and weather. This is the one this project uses.','龙王——海洋与水域的统治者，居住在海底龙宫。':'The Dragon King — ruler of seas and waters, living in an undersea palace.','青龙——东方与春天的守护者，四象之一。':'The Azure Dragon — guardian of the East and of spring, one of the Four Symbols.','远古有翼之龙——传说中黄帝征战时的助手。':'The ancient winged dragon — said to have aided the Yellow Emperor in battle.','天龙——天界神明居所的守护者。':'The Celestial Dragon — guardian of the heavens where the gods dwell.',
-    '链上信息':'On-Chain','上的 4 个合约。':' — 4 contracts.','设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：':'The design follows proven patterns: NFT, token, curve market and trading market. Real status:','尚未部署':'Not deployed','——以下地址为占位符，并非真实地址。上线后，每个地址都会链接到':' — the addresses below are placeholders, not real addresses. After launch, each one will link to the verified contract page on','上已验证的合约页面；智能体说明文件':' ; the agent instructions file','现在就能打开。':' can be opened right now.',
+    '链上信息':'On-Chain','上的 4 个合约。':' — 4 contracts.','设计遵循成熟模式：NFT、代币、曲线市场与交易市场。真实状态：':'The design follows proven patterns: NFT, token, curve market and trading market. Real status:','已部署':'Deployed','——以下为真实地址，点击可查看':' — the real addresses below, click to view','上已验证的合约页面；智能体说明文件':' ; the agent instructions file','现在就能打开。':' can be opened right now.',
     'ERC-721 藏品合约':'ERC-721 Collection Contract','负责铸造规则——每钱包最多 5 个——以及 Agent ID 核查、PuzzlePass、向金库付款与代币分发。':'Runs the mint rules — max 5 per wallet — plus Agent ID checks, PuzzlePass, payment to the vault and token distribution.',
-    'ERC-20 代币':'ERC-20 Token','上限 133,320,000。无所有者，无税费。':'Capped at 133,320,000. No owner, no taxes.','在恒定乘积联合曲线上交易 $LONG ↔ BNB。':'Trades $LONG ↔ BNB on a constant-product bonding curve.','NFT 交易市场':'NFT Marketplace','处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。':'Handles BNB-priced listings and offers. A listed Shenlong stays in the seller\u2019s wallet until it sells.','0x0000…0000 — 主网上线时公布':'0x0000…0000 — Announced at mainnet launch',
+    'ERC-20 代币':'ERC-20 Token','上限 133,320,000。无所有者，无税费。':'Capped at 133,320,000. No owner, no taxes.','在恒定乘积联合曲线上交易 $LONG ↔ BNB。':'Trades $LONG ↔ BNB on a constant-product bonding curve.','NFT 交易市场':'NFT Marketplace','处理以 BNB 计价的上架与报价。已上架的神龙在售出前仍保留在卖家钱包中。':'Handles BNB-priced listings and offers. A listed Shenlong stays in the seller\u2019s wallet until it sells.',
     '已完成什么，':'What is done,','接下来做什么。':'what comes next.','阶段 1 · 概念与藏品':'Phase 1 · Concept & Collection','身份、传说与全套藏品':'Identity, Lore & the Full Collection','神龙之名、传说故事与水墨艺术风格已定；全套 8,888 张图与 8,888 份元数据已经全部生成并逐一校验（零重复），类别与稀有度分布见上方属性部分。':'The name, the lore and the ink-painting art style are set; all 8,888 images and 8,888 metadata files are generated and verified one by one (zero duplicates). See the Traits section above for class and rarity distribution.',
     '阶段 2 · 协议设计':'Phase 2 · Protocol Design','铸造、曲线与代币经济学':'Minting, Curve & Tokenomics','Agent ID + PuzzlePass 铸造规则、$LONG 联合曲线公式，以及 133,320,000 代币分配已设计完成。':'The Agent ID + PuzzlePass mint rules, the $LONG bonding-curve formula and the 133,320,000 token allocation are fully designed.',
-    '阶段 3 · 下一步':'Phase 3 · Next','部署并验证合约':'Deploy & Verify the Contracts','将 4 个合约部署到 BNB 链，在 BscScan 上验证源代码，并公布官方地址。':'Deploy the 4 contracts to BNB Chain, verify the source on BscScan, and publish the official addresses.',
+    '阶段 3 · 已完成':'Phase 3 · Done','部署合约':'Deploy the Contracts','4 个合约已部署到 BNB 链，官方地址已在上方公布。':'The 4 contracts are deployed to BNB Chain, official addresses published above.',
     '阶段 4 · 运行层':'Phase 4 · Runtime','鲜活的智能体':'Living Agents','为每个职业打造智能体运行层：任务队列、声誉系统与神龙智能体排行榜。':'Build the agent runtime for every class: task queues, a reputation system and a Shenlong agent leaderboard.',
     '常见问题':'FAQ','常见':'Frequently Asked','问题':'Questions',
-    '探索':'Explore','链接':'Links','BscScan（合约上线后在此核对）':'BscScan (verify contracts here after launch)','/agent.txt 智能体说明':'/agent.txt Agent Instructions',
+    '探索':'Explore','链接':'Links','BscScan（在此核对合约）':'BscScan (verify contracts here)','/agent.txt 智能体说明':'/agent.txt Agent Instructions',
     '概念预览——不构成任何金融要约。交易前请务必在 BscScan 上核对合约地址。':'Concept preview — not a financial offer. Always verify contract addresses on BscScan before trading.',
     '减少':'Decrease','增加':'Increase'
   };
@@ -999,6 +1008,36 @@ Vt = 88,880,000 $LONG
   }
   document.getElementById('langBtn').addEventListener('click',function(){ setLang(window.__lang==='en'?'zh':'en'); });
   document.getElementById('langLink').addEventListener('click',function(e){ e.preventDefault(); mm.classList.remove('open'); setLang(window.__lang==='en'?'zh':'en'); });
+  // ===== Live mint counter — dibaca dari BNB Mainnet (public RPC), tanpa wallet =====
+  var NFT_ADDR='0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a';
+  var RPC_URL='https://bsc-dataseed.binance.org';
+  window.__liveMinted=null; window.__liveOpen=null;
+  function refreshLiveStats(){
+    var en=(window.__lang==='en');
+    var h=document.getElementById('heroMinted'), m=document.getElementById('miniMinted'),
+        hr=document.getElementById('heroRemaining'), mr=document.getElementById('miniRemaining'),
+        pr=document.getElementById('heroProgress');
+    if(window.__liveMinted===null) return;
+    var n=window.__liveMinted, rem=8888-n;
+    var suf=window.__liveOpen ? (en?' — OPEN':' — 已开放') : (en?' — Not open yet':' — 尚未开放');
+    if(h) h.textContent=n+suf;
+    if(m) m.textContent=n+' / 8,888'+suf;
+    if(hr) hr.textContent=rem.toLocaleString('en-US');
+    if(mr) mr.textContent=rem.toLocaleString('en-US');
+    if(pr) pr.style.width=(n/8888*100)+'%';
+  }
+  function fetchLiveStats(){
+    function call(data){
+      return fetch(RPC_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:NFT_ADDR,data:data},'latest']})}).then(function(r){return r.json();}).then(function(j){return j.result;});
+    }
+    Promise.all([call('0xa2309ff8'),call('0x24bbd049')]).then(function(res){
+      window.__liveMinted=parseInt(res[0].slice(-64),16);
+      window.__liveOpen=res[1].slice(-1)==='1';
+      refreshLiveStats();
+    }).catch(function(){ /* RPC gagal — biarkan angka statis */ });
+  }
+  var _setLangOrig=setLang; setLang=function(l){ _setLangOrig(l); refreshLiveStats(); };
+  fetchLiveStats(); setInterval(fetchLiveStats,30000);
 })();
 </script>
 </body>

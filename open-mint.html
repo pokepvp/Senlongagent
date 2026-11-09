@@ -101,7 +101,8 @@ function decString(h) {
   const raw = h.slice(2);
   const len = parseInt(raw.slice(64, 128), 16);
   const data = raw.slice(128, 128 + len * 2);
-  const bytes = new Uint8Array(data.match(/.{2}/g).map((b) => parseInt(b, 16)));
+  const pairs = data.match(/.{2}/g) || []; // "" (baseURI kosong) -> match() null, jangan crash
+  const bytes = new Uint8Array(pairs.map((b) => parseInt(b, 16)));
   return new TextDecoder().decode(bytes);
 }
 async function rpc(method, params) { return provider().request({ method, params: params || [] }); }

@@ -843,31 +843,54 @@ Vt = 88,880,000 $LONG
   function renderQty(){ qOut.textContent=qty; qTot.textContent=(qty*0.001).toFixed(3)+' BNB'; buildPrompt(); }
   document.getElementById('qPlus').addEventListener('click',function(){ if(qty<5) qty++; renderQty(); });
   document.getElementById('qMinus').addEventListener('click',function(){ if(qty>1) qty--; renderQty(); });
+  // Baca mintOpen langsung lewat wallet (paling bisa diandalkan saat sudah connect)
+  function checkOpenViaWallet(){
+    var p=getProvider();
+    if(!p) return Promise.resolve(null);
+    return p.request({method:'eth_call',params:[{to:NFT_ADDR,data:'0x24bbd049'},'latest']}).then(function(r){
+      if(typeof r!=='string'||r.length<2) return null;
+      return r.slice(-1)==='1';
+    }).catch(function(){ return null; });
+  }
   document.getElementById('mintBtn').addEventListener('click',function(){
     var st=document.getElementById('mintStatus'), en=(window.__lang==='en');
     if(!account){
       window.__connectWallet().then(function(ok){
-        if(ok) st.textContent=en
-          ? 'Wallet connected: '+account+'. Minting is not open yet — the contract is deployed, the owner opens mint soon. The official addresses are published on this page.'
-          : '钱包已连接：'+account+'。但铸造尚未开放——合约已部署，主人很快会开放。官方地址已在本页公布。';
+        if(!ok) return;
+        st.textContent=en?'Memeriksa status mint…':'正在查询铸造状态…';
+        checkOpenViaWallet().then(function(via){
+          var open=(via!==null?via:window.__liveOpen===true);
+          st.textContent=(en?'Wallet connected: '+account+'. ':'钱包已连接：'+account+'。')+(open
+            ? (en?'Mint is OPEN. Generate the agent prompt below and let your agent mint with a PuzzlePass (ask the owner for the pass first).':'铸造已开放。请在下方生成智能体指令，让智能体凭 PuzzlePass 铸造（先向主人索取通行证）。')
+            : (en?'Minting is not open yet — the contract is deployed, the owner opens mint soon. The official addresses are published on this page.':'但铸造尚未开放——合约已部署，主人很快会开放。官方地址已在本页公布。'));
+        });
       });
       return;
     }
     if(!chainOk){
       ensureChain(getProvider()).then(function(ok){
-        st.textContent=ok
-          ? (en?'Switched to BNB Chain. Minting is still not open — the contract is deployed, the owner opens it soon.':'已切换到 BNB 链。但铸造仍未开放——合约已部署，主人很快会开放。')
-          : (en?'Please switch your wallet to BNB Chain (chain ID 56) first.':'请先在钱包中切换到 BNB 链（chain ID 56）。');
+        if(!ok){ st.textContent=(en?'Please switch your wallet to BNB Chain (chain ID 56) first.':'请先在钱包中切换到 BNB 链（chain ID 56）。'); return; }
+        st.textContent=en?'Memeriksa status mint…':'正在查询铸造状态…';
+        checkOpenViaWallet().then(function(via){
+          var open=(via!==null?via:window.__liveOpen===true);
+          st.textContent=(en?'Switched to BNB Chain. ':'已切换到 BNB 链。')+(open
+            ? (en?'Mint is OPEN. Generate the agent prompt below and let your agent mint with a PuzzlePass.':'铸造已开放。请在下方生成智能体指令，让智能体凭 PuzzlePass 铸造。')
+            : (en?'Minting is still not open — the contract is deployed, the owner opens it soon.':'但铸造仍未开放——合约已部署，主人很快会开放。'));
+        });
       });
       return;
     }
-    st.textContent=en
-      ? (window.__liveOpen===true
-        ? 'Mint is OPEN. Generate the agent prompt below and let your agent mint with a PuzzlePass (ask the owner for the pass first).'
-        : 'Wallet ready on BNB Chain ('+shortAddr(account)+'). The contract is deployed, but minting is not open yet — the owner opens it soon. This button sends nothing.')
-      : (window.__liveOpen===true
-        ? '铸造已开放。请在下方生成智能体指令，让智能体凭 PuzzlePass 铸造（先向主人索取通行证）。'
-        : '钱包已就绪（BNB 链，'+shortAddr(account)+'）。合约已部署，但铸造尚未开放——主人很快会开放。当前本按钮不会发送任何交易。');
+    st.textContent=en?'Memeriksa status mint di chain…':'正在链上查询铸造状态…';
+    checkOpenViaWallet().then(function(via){
+      var open=(via!==null?via:window.__liveOpen===true);
+      st.textContent=en
+        ? (open
+          ? 'Mint is OPEN. Generate the agent prompt below and let your agent mint with a PuzzlePass (ask the owner for the pass first).'
+          : 'Wallet ready on BNB Chain ('+shortAddr(account)+'). The contract is deployed, but minting is not open yet — the owner opens it soon. This button sends nothing.')
+        : (open
+          ? '铸造已开放。请在下方生成智能体指令，让智能体凭 PuzzlePass 铸造（先向主人索取通行证）。'
+          : '钱包已就绪（BNB 链，'+shortAddr(account)+'）。合约已部署，但铸造尚未开放——主人很快会开放。当前本按钮不会发送任何交易。');
+    });
   });
 
   // Agent prompt generator
@@ -1010,7 +1033,7 @@ Vt = 88,880,000 $LONG
   document.getElementById('langLink').addEventListener('click',function(e){ e.preventDefault(); mm.classList.remove('open'); setLang(window.__lang==='en'?'zh':'en'); });
   // ===== Live mint counter — dibaca dari BNB Mainnet (public RPC), tanpa wallet =====
   var NFT_ADDR='0x2d8ef79e5d31c6ffcc230ba3ef27615e4f2a579a';
-  var RPC_URL='https://bsc-dataseed.binance.org';
+  var RPC_URLS=['https://bsc-dataseed.binance.org','https://bsc-dataseed1.binance.org','https://bsc-dataseed2.binance.org','https://bsc-dataseed1.defibit.io'];
   window.__liveMinted=null; window.__liveOpen=null;
   function refreshLiveStats(){
     var en=(window.__lang==='en');
@@ -1026,15 +1049,25 @@ Vt = 88,880,000 $LONG
     if(mr) mr.textContent=rem.toLocaleString('en-US');
     if(pr) pr.style.width=(n/8888*100)+'%';
   }
+  function rpcCall(url,data){
+    var ctl=new AbortController(); var to=setTimeout(function(){ ctl.abort(); },6000);
+    return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:NFT_ADDR,data:data},'latest']}),signal:ctl.signal}).then(function(r){ clearTimeout(to); return r.json(); }).then(function(j){
+      if(!j||typeof j.result!=='string'||j.result.length<2) throw new Error('bad rpc');
+      return j.result;
+    }).catch(function(e){ clearTimeout(to); throw e; });
+  }
   function fetchLiveStats(){
-    function call(data){
-      return fetch(RPC_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:NFT_ADDR,data:data},'latest']})}).then(function(r){return r.json();}).then(function(j){return j.result;});
-    }
-    Promise.all([call('0xa2309ff8'),call('0x24bbd049')]).then(function(res){
+    var chain=Promise.reject();
+    RPC_URLS.forEach(function(url){
+      chain=chain.catch(function(){
+        return Promise.all([rpcCall(url,'0xa2309ff8'),rpcCall(url,'0x24bbd049')]);
+      });
+    });
+    chain.then(function(res){
       window.__liveMinted=parseInt(res[0].slice(-64),16);
       window.__liveOpen=res[1].slice(-1)==='1';
       refreshLiveStats();
-    }).catch(function(){ /* RPC gagal — biarkan angka statis */ });
+    }).catch(function(){ /* semua RPC gagal — biarkan angka statis */ });
   }
   var _setLangOrig=setLang; setLang=function(l){ _setLangOrig(l); refreshLiveStats(); };
   fetchLiveStats(); setInterval(fetchLiveStats,30000);
